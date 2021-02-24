@@ -1,23 +1,12 @@
 @extends('layouts.app2')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ trans('Dashboard') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-                    
-                    {{ trans('You are logged in!') }}
-                </div>
-            </div>
-        </div>
+<!-- Hero Section -->
+<section id="hero" class="d-flex align-items-center">
+    <div class="container text-center position-relative" data-aos="fade-in" data-aos-delay="200">
+        <h1>Find Restaurants in Thailand</h1>
+        <h2>- WongWianYai -</h2>
+        <a href="#about" class="btn-get-started scrollto">{{ trans('global.login') }}</a>
     </div>
-</div>
+</section><!-- End Hero -->
 @endsection
