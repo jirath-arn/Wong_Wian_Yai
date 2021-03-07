@@ -23,6 +23,9 @@
     <!-- Main CSS File -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
+    <!-- Cloudflare CSS File -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.3.1/css/flag-icon.min.css">
+
     @yield('styles')
 </head>
 
@@ -40,7 +43,6 @@
                         <li><a class="nav-link scrollto active" href="#hero">{{ trans('global.home') }}</a></li>
                         <li><a class="nav-link scrollto" href="#about">{{ trans('global.about') }}</a></li>
                         <li><a class="nav-link scrollto" href="#services">Services</a></li>
-                        <li><a class="nav-link scrollto " href="#portfolio">Portfolio</a></li>
                         <li><a class="nav-link scrollto" href="#team">Team</a></li>
                         <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
                             <ul>
@@ -60,6 +62,13 @@
                             </ul>
                         </li>
                         <li><a class="nav-link scrollto" href="#contact">{{ trans('global.contact') }}</a></li>
+                        <li class="dropdown"><a href="#"><span>Languages</span> <i class="bi bi-chevron-down"></i></a>
+                            <ul>
+                                <li><a href="#">English<span class="flag-icon flag-icon-gb"></span></a></li>
+                                <!-- <li><a href="#">Japanese<span class="flag-icon flag-icon-jp"></span></a></li> -->
+                                <li><a href="#">Thai<span class="flag-icon flag-icon-th"></span></a></li>
+                            </ul>
+                        </li>
                         <li><a class="getstarted scrollto" href="#about">{{ trans('global.login') }}</a></li>
                     </ul>
                     <i class="bi bi-list mobile-nav-toggle"></i>
@@ -116,10 +125,10 @@
         <div class="container d-md-flex py-4">
             <div class="me-md-auto text-center text-md-start">
                 <div class="copyright">
-                    &copy; Copyright <strong><span>{{ trans('panel.title_logo') }}</span></strong>. All Rights Reserved
+                    &copy; Copyright 2021 <strong><span>{{ trans('panel.title_logo') }}</span></strong>. All Rights Reserved.
                 </div>
                 <div class="credits">
-                    Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+                    Designed by <a href="https://bootstrapmade.com/">{{ trans('panel.title_logo') }}</a>
                 </div>
             </div>
             <div class="social-links text-center text-md-right pt-3 pt-md-0">

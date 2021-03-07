@@ -18,7 +18,8 @@ Route::get('/', function () {
 });
 
 Route::get('/test', function () {
-    return view('index');
+    // return view('index');
+    return view('auth.login2');
 });
 
 Auth::routes();
