@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app2')
 
 @section('content') 
 <div class="container">
@@ -83,7 +83,7 @@
                             <div class="col-md-6">
                             <form action="upload.php" method="post" enctype="multipart/form-data">
                                 เลือกรูปภาพ
-                                <!-- <input type="file" name="pic" id="fileToUpload"><br> -->
+                                <input type="file" name="pic" id="fileToUpload"><br>
                                 <input type="submit" value="Upload Image" name="submit">
                             </form>
                             </div>
