@@ -1,4 +1,9 @@
-@extends('layouts.app2')
+@extends('layouts.app')
+
+@section('head')
+    <meta name="description" content="Wong Wian Yai">
+    <title>{{ trans('panel.site_title') }}</title>
+@endsection
 
 @section('content')
 <!-- Hero Section -->

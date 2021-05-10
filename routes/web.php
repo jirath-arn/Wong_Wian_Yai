@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\RestaurantController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,16 +24,13 @@ Route::get('/test', function () {
     // return view('auth.login2');
 });
 
-Route::get('/v2', function () {
-    // return view('index');
-    return view('layouts.app2');
-});
-
-Route::get('/v3', function () {
-    // return view('index');
-    return view('layouts.app3');
-});
-
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], function () {
+    // Route::redirect('/', '/admin/buses');
+
+    // Buses
+    // Route::resource('buses', BusController::class);
+});
