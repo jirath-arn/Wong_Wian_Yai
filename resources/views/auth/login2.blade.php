@@ -1,4 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.main')
+
+@section('head')
+    <title>{{ trans('panel.page_login') }}</title>
+@endsection
 
 @section('content')
 <!-- Hero Section -->

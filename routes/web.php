@@ -19,9 +19,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/test', function () {
+Route::get('/v1', function () {
     return view('index');
-    // return view('auth.login2');
+    // return view('auth.login3');
 });
 
 Auth::routes();
