@@ -3,7 +3,7 @@
 return [
 
     'site_title'    => 'WongWianYai',
-    'page_index'    => 'WongWianYai - รีวิวร้านอาหาร',
+    'page_search'    => 'WongWianYai - รีวิวร้านอาหาร',
     'page_login'    => 'WongWianYai - เข้าสู่ระบบ',
     'about_us' => [
         'address'   => 'มหาวิทยาลัยธรรมศาสตร์ ศูนย์รังสิต 99 ม.18 ถ.พหลโยธิน ต.คลองหนึ่ง อ.คลองหลวง จ.ปทุมธานี 12120',

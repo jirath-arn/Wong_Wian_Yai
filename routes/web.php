@@ -26,6 +26,8 @@ Route::get('/test', function () {
     return view('auth.login3');
 });
 
+Route::get('/welcome', [SearchController::class, 'index']);
+
 Route::get('/v1', [SearchController::class, 'index'])->name('v1');
 
 Auth::routes();

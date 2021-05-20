@@ -13,6 +13,6 @@ class SearchController extends Controller
         $categories = Category::all();
         $restaurants = Restaurant::inRandomOrder()->get();
 
-        return view('index', compact('categories', 'restaurants'));
+        return view('welcome', compact('categories', 'restaurants'));
     }
 }
