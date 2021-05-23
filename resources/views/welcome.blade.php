@@ -47,11 +47,29 @@
                         <li><a class="nav-link scrollto" href="#">{{ trans('global.contact') }}</a></li>
                         <li class="dropdown"><a href="#"><span>Languages</span> <i class="bi bi-chevron-down"></i></a>
                             <ul>
-                                <li><a href="#">English<span class="flag-icon flag-icon-gb"></span></a></li>
-                                <li><a href="#">Thai<span class="flag-icon flag-icon-th"></span></a></li>
+                                <li><a href="{{ url()->current() }}?change_language=en">English<span class="flag-icon flag-icon-gb"></span></a></li>
+                                <li><a href="{{ url()->current() }}?change_language=th">Thai<span class="flag-icon flag-icon-th"></span></a></li>
                             </ul>
                         </li>
-                        <li><a class="getstarted scrollto" href="{{ route('login') }}">{{ trans('global.login') }}</a></li>
+                        @guest
+                            @if (Route::has('login'))
+                                <li><a class="getstarted scrollto" href="{{ route('login') }}">{{ trans('global.login') }}</a></li>
+                            @endif
+                        @else
+                            <li class="dropdown"><a class="getstarted scrollto" href="#" style="color: #fff;"><span>Name : <label style="text-transform: none;">{{ Auth::user()->username }}</label></span> <i class="bi bi-chevron-down"></i></a>
+                                <ul>
+                                    @can('review_delete')
+                                        <li><a href="#">review_delete</a></li>
+                                    @endcan
+                                    <li>
+                                        <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                            @csrf
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        @endguest
                     </ul>
                     <i class="bi bi-list mobile-nav-toggle"></i>
                 </nav><!-- End navbar -->
@@ -64,7 +82,13 @@
         <div class="container text-center position-relative" data-aos="fade-in" data-aos-delay="200">
             <h1>Find restaurants in Thailand</h1>
             <h2>- WongWianYai -</h2>
-            <a href="{{ route('login') }}" class="btn-get-started scrollto">{{ trans('global.login') }}</a>
+            @guest
+                @if (Route::has('login'))
+                    <a href="{{ route('login') }}" class="btn-get-started scrollto">{{ trans('global.login') }}</a>
+                @endif
+            @else
+                <a href="#restaurants" class="btn-get-started scrollto">Popular Restaurants</a>
+            @endguest
         </div>
     </section><!-- End Hero -->
     

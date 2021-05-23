@@ -23,15 +23,13 @@ Route::get('/', [SearchController::class, 'index']);
 
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+// Route::get('/home', [HomeController::class, 'index']);
 
 Route::group(['middleware' => ['auth']], function () {
     
-    // Test
+    Route::redirect('/home', '/');
 
     Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
-        // Route::redirect('/', '/admin/buses');
-    
         // Categories
         Route::resource('categories', CategoryController::class);
         
