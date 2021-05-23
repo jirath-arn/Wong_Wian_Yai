@@ -9,14 +9,13 @@ use App\Http\Controllers\Admin\ReviewController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SearchController;
 
 
 // Route::redirect('/', '/login');
 
 Route::get('/test', function () {
-    return view('login2');
+    return view('index');
 });
 
 Route::get('/', [SearchController::class, 'index']);

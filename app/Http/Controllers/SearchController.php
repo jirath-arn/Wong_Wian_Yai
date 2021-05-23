@@ -31,7 +31,7 @@ class SearchController extends Controller
             $reviews[$i] = array('score_reviews' => $score_avg_reviews, 'count_reviews' => $count_reviews);
         }
 
-        return view('welcome', compact('categories', 'restaurants', 'reviews'));
+        return view('search', compact('categories', 'restaurants', 'reviews'));
     }
 
     public function show(Request $request, $id)

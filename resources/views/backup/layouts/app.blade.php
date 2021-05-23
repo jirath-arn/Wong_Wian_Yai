@@ -11,9 +11,6 @@
     <!-- Google Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i">
     
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    
     <!-- Vendor CSS Files -->
     <link rel="stylesheet" href="{{ asset('css/vendor/aos/aos.css') }}">
     <link rel="stylesheet" href="{{ asset('css/vendor/bootstrap/css/bootstrap.min.css') }}">
@@ -25,7 +22,7 @@
     <link rel="stylesheet" href="{{ asset('css/vendor/cloudflare-flag-icon/css/flag-icon.min.css') }}">
 
     <!-- Main CSS File -->
-    <link rel="stylesheet" href="{{ asset('css/welcome.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
     @yield('styles')
 </head>
@@ -36,41 +33,41 @@
         <div class="container">
             <div class="header-container d-flex align-items-center justify-content-between">
                 <div class="logo">
-                    <h1 class="text-light"><a href="{{ url('/') }}"><span>{{ trans('panel.site_title') }}</span></a></h1>
+                    <h1 class="text-light"><a href="{{ url('/v1') }}"><span>{{ trans('panel.site_title') }}</span></a></h1>
                 </div>
                 
                 <nav id="navbar" class="navbar">
                     <ul>
                         <li><a class="nav-link scrollto active" href="#hero">{{ trans('global.home') }}</a></li>
-                        <li><a class="nav-link scrollto" href="#">{{ trans('global.about') }}</a></li>
-                        <li><a class="nav-link scrollto" href="#restaurants">{{ trans('global.search') }}</a></li>
-                        <li><a class="nav-link scrollto" href="#">{{ trans('global.contact') }}</a></li>
-                        <li class="dropdown"><a href="#"><span>{{ trans('global.languages') }}</span> <i class="bi bi-chevron-down"></i></a>
+                        <li><a class="nav-link scrollto" href="#about">{{ trans('global.about') }}</a></li>
+                        <li><a class="nav-link scrollto" href="#services">Services</a></li>
+                        <li><a class="nav-link scrollto" href="#team">Team</a></li>
+                        <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
                             <ul>
-                                <li><a href="{{ url()->current() }}?change_language=en">{{ trans('global.countries.en') }}<span class="flag-icon flag-icon-gb"></span></a></li>
-                                <li><a href="{{ url()->current() }}?change_language=th">{{ trans('global.countries.th') }}<span class="flag-icon flag-icon-th"></span></a></li>
+                                <li><a href="#">Drop Down 1</a></li>
+                                <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
+                                    <ul>
+                                        <li><a href="#">Deep Drop Down 1</a></li>
+                                        <li><a href="#">Deep Drop Down 2</a></li>
+                                        <li><a href="#">Deep Drop Down 3</a></li>
+                                        <li><a href="#">Deep Drop Down 4</a></li>
+                                        <li><a href="#">Deep Drop Down 5</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">Drop Down 2</a></li>
+                                <li><a href="#">Drop Down 3</a></li>
+                                <li><a href="#">Drop Down 4</a></li>
                             </ul>
                         </li>
-                        @guest
-                            @if (Route::has('login'))
-                                <li><a class="getstarted scrollto" href="{{ route('login') }}">{{ trans('global.login') }}</a></li>
-                            @endif
-                        @else
-                            <li class="dropdown"><a class="getstarted scrollto" href="#" style="color: #fff;"><span>{{ trans('global.username') }} : <label style="text-transform: none;">{{ Auth::user()->username }}</label></span> <i class="bi bi-chevron-down"></i></a>
-                                <ul>
-                                    @can('review_delete')
-                                        <li><a href="#">Review Delete</a></li>
-                                    @endcan
-
-                                    <li>
-                                        <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ trans('global.logout') }}</a>
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                            @csrf
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
-                        @endguest
+                        <li><a class="nav-link scrollto" href="#contact">{{ trans('global.contact') }}</a></li>
+                        <li class="dropdown"><a href="#"><span>Languages</span> <i class="bi bi-chevron-down"></i></a>
+                            <ul>
+                                <li><a href="#">English<span class="flag-icon flag-icon-gb"></span></a></li>
+                                <li><a href="#">Japanese<span class="flag-icon flag-icon-jp"></span></a></li>
+                                <li><a href="#">Thai<span class="flag-icon flag-icon-th"></span></a></li>
+                            </ul>
+                        </li>
+                        <li><a class="getstarted scrollto" href="#about">{{ trans('global.login') }}</a></li>
                     </ul>
                     <i class="bi bi-list mobile-nav-toggle"></i>
                 </nav><!-- End navbar -->
@@ -79,7 +76,7 @@
     </header><!-- End Header -->
 
     @yield('content')
-
+    
     <!-- Footer -->
     <footer id="footer">
         <div class="footer-top">
@@ -89,32 +86,35 @@
                         <h3>{{ trans('panel.site_title') }}</h3>
                         <p>
                             {{ trans('panel.about_us.address') }}<br><br>
-                            <strong>{{ trans('global.phone') }} :</strong> {{ trans('panel.about_us.phone') }}<br>
-                            <strong>{{ trans('global.email') }} :</strong> {{ trans('panel.about_us.email') }}<br>
+                            <strong>{{ trans('global.phone') }}:</strong> {{ trans('panel.about_us.phone') }}<br>
+                            <strong>{{ trans('global.email') }}:</strong> {{ trans('panel.about_us.email') }}<br>
                         </p>
                     </div>
                     <div class="col-lg-2 col-md-6 footer-links">
-                        <h4>{{ trans('global.useful_links') }}</h4>
+                        <h4>Useful Links</h4>
                         <ul>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#hero">{{ trans('global.home') }}</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">{{ trans('global.about_us') }}</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#restaurants">{{ trans('global.search') }}</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">{{ trans('global.contact') }}</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
                         </ul>
                     </div>
                     <div class="col-lg-3 col-md-6 footer-links">
-                        <h4>{{ trans('global.our_services') }}</h4>
+                        <h4>Our Services</h4>
                         <ul>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#restaurants">{{ trans('panel.search_restaurants') }}</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#restaurants">{{ trans('panel.promote_restaurants') }}</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#restaurants">{{ trans('panel.restaurant_reviews') }}</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
                         </ul>
                     </div>
                     <div class="col-lg-4 col-md-6 footer-newsletter">
-                        <h4>{{ trans('panel.join_our_newsletter') }}</h4>
-                        <p>{{ trans('panel.newsletter_content') }}</p>
-                        <form action="" method="POST">
-                            <input type="email" name="email"><input type="submit" value="{{ trans('global.subscribe') }}">
+                        <h4>Join Our Newsletter</h4>
+                        <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
+                        <form action="" method="post">
+                            <input type="email" name="email"><input type="submit" value="Subscribe">
                         </form>
                     </div>
                 </div>
@@ -126,7 +126,7 @@
                     &copy; Copyright 2021 <strong><span>{{ trans('panel.site_title') }}</span></strong>. All Rights Reserved.
                 </div>
                 <div class="credits">
-                    Designed by <a href="{{ url('/') }}">{{ trans('panel.site_title') }}</a>
+                    Designed by <a href="{{ url('/v1') }}">{{ trans('panel.site_title') }}</a>
                 </div>
             </div>
             <div class="social-links text-center text-md-right pt-3 pt-md-0">
