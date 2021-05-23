@@ -11,6 +11,9 @@
     <!-- Google Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i">
     
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
     <!-- Vendor CSS Files -->
     <link rel="stylesheet" href="{{ asset('css/vendor/aos/aos.css') }}">
     <link rel="stylesheet" href="{{ asset('css/vendor/bootstrap/css/bootstrap.min.css') }}">
@@ -22,17 +25,9 @@
     <link rel="stylesheet" href="{{ asset('css/vendor/cloudflare-flag-icon/css/flag-icon.min.css') }}">
 
     <!-- Main CSS File -->
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ asset('css/welcome.css') }}">
 
     @yield('styles')
-
-    <style>
-        .checked {
-          color: orange;
-        }
-        </style>
 </head>
 
 <body>
@@ -47,35 +42,16 @@
                 <nav id="navbar" class="navbar">
                     <ul>
                         <li><a class="nav-link scrollto active" href="#hero">{{ trans('global.home') }}</a></li>
-                        <li><a class="nav-link scrollto" href="#about">{{ trans('global.about') }}</a></li>
-                        <li><a class="nav-link scrollto" href="#services">Services</a></li>
-                        <li><a class="nav-link scrollto" href="#team">Team</a></li>
-                        <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
-                            <ul>
-                                <li><a href="#">Drop Down 1</a></li>
-                                <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
-                                    <ul>
-                                        <li><a href="#">Deep Drop Down 1</a></li>
-                                        <li><a href="#">Deep Drop Down 2</a></li>
-                                        <li><a href="#">Deep Drop Down 3</a></li>
-                                        <li><a href="#">Deep Drop Down 4</a></li>
-                                        <li><a href="#">Deep Drop Down 5</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="#">Drop Down 2</a></li>
-                                <li><a href="#">Drop Down 3</a></li>
-                                <li><a href="#">Drop Down 4</a></li>
-                            </ul>
-                        </li>
-                        <li><a class="nav-link scrollto" href="#contact">{{ trans('global.contact') }}</a></li>
+                        <li><a class="nav-link scrollto" href="#">{{ trans('global.about') }}</a></li>
+                        <li><a class="nav-link scrollto" href="#restaurants">Search</a></li>
+                        <li><a class="nav-link scrollto" href="#">{{ trans('global.contact') }}</a></li>
                         <li class="dropdown"><a href="#"><span>Languages</span> <i class="bi bi-chevron-down"></i></a>
                             <ul>
                                 <li><a href="#">English<span class="flag-icon flag-icon-gb"></span></a></li>
-                                <li><a href="#">Japanese<span class="flag-icon flag-icon-jp"></span></a></li>
                                 <li><a href="#">Thai<span class="flag-icon flag-icon-th"></span></a></li>
                             </ul>
                         </li>
-                        <li><a class="getstarted scrollto" href="#about">{{ trans('global.login') }}</a></li>
+                        <li><a class="getstarted scrollto" href="{{ route('login') }}">{{ trans('global.login') }}</a></li>
                     </ul>
                     <i class="bi bi-list mobile-nav-toggle"></i>
                 </nav><!-- End navbar -->
@@ -88,67 +64,116 @@
         <div class="container text-center position-relative" data-aos="fade-in" data-aos-delay="200">
             <h1>Find restaurants in Thailand</h1>
             <h2>- WongWianYai -</h2>
-            <a href="#about" class="btn-get-started scrollto">{{ trans('global.login') }}</a>
+            <a href="{{ route('login') }}" class="btn-get-started scrollto">{{ trans('global.login') }}</a>
         </div>
     </section><!-- End Hero -->
     
-    <!-- services Section -->
-    <section id="services" class="services section-bg">
+    <!-- Restaurants Section -->
+    <section id="restaurants" class="restaurants section-bg">
         <div class="container">
             <div class="row">
-                <h4>Popular Restaurants</h4>
                 <!-- Left Info -->
-                <div class="col-lg-2">
-                    
+                <div class="col-lg-8 restaurants-topic">
+                    <h4>Popular Restaurants</h4>
+                </div>
+
+                <!-- Right Info -->
+                <div class="col-lg-4 restaurants-search">
+                    <form action="" method="POST">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
+                        </svg>
+
+                        <input type="search" name="search" placeholder="ex. Categories, Restaurants, Cities"><input type="submit" value="Search">
+                    </form>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Left Info -->
+                <div class="col-lg-2 menu-filter">
                     <hr>
                     <div class="section-title" data-aos="fade-right">
                         <strong>Categories</strong><br>
                         
-                        @foreach($categories as $key => $category)
-                            <input type="checkbox" id="{{ $category->id }}" name="{{ $category->id }}" value="{{ $category->title }}">
-                            <label for="{{ $category->id }}"> {{ $category->title }}</label><br>
-                        @endforeach
+                        <div class="checkbox">
+                            @foreach($categories as $key => $category)
+                                <label><input type="checkbox" value="{{ $category->title }}"> {{ $category->title }}</label><br>
+                            @endforeach
+                        </div>
                     </div>
                     <div class="section-title" data-aos="fade-right">
-                        <strong>Score</strong><br>
+                        <strong>Star Rating</strong><br>
+
+                        <div class="radio">
+                            <label><input type="radio" value="4.0" name="rating"> &GreaterEqual; 4.0</label><br>
+                            <label><input type="radio" value="3.5" name="rating"> &GreaterEqual; 3.5</label><br>
+                            <label><input type="radio" value="3.0" name="rating"> &GreaterEqual; 3.0</label><br>
+                        </div>
+                    </div>
+                    <div class="section-title" data-aos="fade-right">
+                        <strong>Cities</strong><br>
                         
-                        <input type="radio" id="male" name="gender" value="male">
-                        <label for="male"> &GreaterEqual; 4.0</label><br>
-                        <input type="radio" id="female" name="gender" value="female">
-                        <label for="female"> &GreaterEqual; 3.5</label><br>
-                        <input type="radio" id="other" name="gender" value="other">
-                        <label for="other"> &GreaterEqual; 3.0</label>
+                        <select class="form-select">
+                            <option selected>Choose...</option>
+                            <option value="Bangkok">Bangkok</option>
+                            <option value="Pathum Thani">Pathum Thani</option>
+                            <option value="Chonburi">Chonburi</option>
+                        </select>
                     </div>
                 </div>
 
                 <!-- Right Info -->
                 <div class="col-lg-10">
                     <div class="row">
-                        @foreach($restaurants as $key => $restaurant)
+                        @for($i = 0; $i < count($restaurants); $i++)
                             <div class="col-md-6 align-items-stretch mt-4">
-                                <div class="icon-box" data-aos="zoom-in" data-aos-delay="100">
-                                    <h4><a href="">{{ $restaurant->name }}</a></h4>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star-half-full checked"></span>
-                                    <span>4.5 (5 Reviews)</span>
+                                <div class="icon-box" data-aos="zoom-in" data-aos-delay="50">
+                                    <h4><a href="">{{ $restaurants[$i]->name }}</a></h4>
 
-                                    <p>ประเภท: {{ $restaurant->category->title }}</p>
-                                    <p>โทรจอง: {{ $restaurant->telephone }}</p>
+                                    <span class="star-rate">{{ $reviews[$i]['score_reviews'] }} <i class="fa fa-star"></i></span>
+                                    <span style="padding-left: 5px;">{{ $reviews[$i]['count_reviews'] }} {{ $reviews[$i]['count_reviews'] >= 2 ? 'Reviews':'Review' }}</span>
+
+                                    <p>
+                                        <strong>ประเภท:</strong> {{ $restaurants[$i]->category->title }}<br>
+                                        <strong>โทรจอง:</strong> {{ $restaurants[$i]->telephone }}<br>
+                                        <strong>สถานที่:</strong> {{ $restaurants[$i]->address }}
+                                    </p>
                                     
                                     <hr>
                                     <img src="{{ asset('img/hero-bg.jpg') }}" alt="Snow" style="width:60%;  margin-left: auto; margin-right: auto; display: block;">
                                 </div>
                             </div>
-                        @endforeach
+                        @endfor
+
+                        {{-- @foreach($restaurants as $key => $restaurant)
+                            <div class="col-md-6 align-items-stretch mt-4">
+                                <div class="icon-box" data-aos="zoom-in" data-aos-delay="50">
+                                    <h4><a href="">{{ $restaurant->name }}</a></h4>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star-half-full checked"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span>4.5 (5 Reviews)</span>
+
+                                    <p>
+                                        <strong>ประเภท:</strong> {{ $restaurant->category->title }}<br>
+                                        <strong>โทรจอง:</strong> {{ $restaurant->telephone }}<br>
+                                        <strong>สถานที่:</strong> {{ $restaurant->address }}
+                                    </p>
+                                    
+                                    <hr>
+                                    <img src="{{ asset('img/hero-bg.jpg') }}" alt="Snow" style="width:60%;  margin-left: auto; margin-right: auto; display: block;">
+                                </div>
+                            </div>
+                        @endforeach --}}
                     </div>
                 </div>
 
             </div>
         </div>
-    </section><!-- End Services Section -->
+    </section><!-- End Restaurants Section -->
 
     <!-- Footer -->
     <footer id="footer">

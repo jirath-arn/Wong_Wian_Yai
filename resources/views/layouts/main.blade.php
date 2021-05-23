@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="{{ asset('css/vendor/cloudflare-flag-icon/css/flag-icon.min.css') }}">
 
     <!-- Main CSS File -->
-    <link rel="stylesheet" href="{{ asset('css/style_main.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
 
     @yield('styles')
 </head>

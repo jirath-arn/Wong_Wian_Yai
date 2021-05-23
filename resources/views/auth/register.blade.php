@@ -1,77 +1,69 @@
-@extends('layouts.app2')
+@extends('layouts.auth')
+
+@section('head')
+    <title>{{ trans('panel.page_register') }}</title>
+@endsection
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+<div class="login-box">
+    <div class="card">
+        <div class="card-body login-card-body">
+            <p class="login-box-msg"><a href="{{ url('/') }}">{{ trans('panel.site_title') }}</a></p><br>
+            <form action="{{ route('register') }}" method="POST">
+                {{ csrf_field() }}
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="username" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus>
-
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                <div class="form-group">
+                    <input type="text" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" required autofocus placeholder="{{ trans('global.username') }}" name="username" value="{{ old('username', null) }}" autocomplete="username">
+                    @if($errors->has('username'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('username') }}
                         </div>
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                    @endif
                 </div>
-            </div>
-        </div>
+                
+                <div class="form-group">
+                    <input type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" required placeholder="{{ trans('global.email') }}" name="email" value="{{ old('email', null) }}" autocomplete="email">
+                    @if($errors->has('email'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('email') }}
+                        </div>
+                    @endif
+                </div>
+
+                <div class="form-group">
+                    <input type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" required placeholder="{{ trans('global.password') }}" name="password" autocomplete="new-password">
+                    @if($errors->has('password'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('password') }}
+                        </div>
+                    @endif
+                </div>
+
+                <div class="form-group">
+                    <input type="password" class="form-control{{ $errors->has('password_confirmation') ? ' is-invalid' : '' }}" required placeholder="{{ trans('global.password_confirm') }}" name="password_confirmation" autocomplete="new-password">
+                    @if($errors->has('password_confirmation'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('password_confirmation') }}
+                        </div>
+                    @endif
+                </div>
+
+                <!-- Checkbox -->
+                <div class="row">
+                    <div class="col-8" style="padding-top: 10px">
+                        @if (Route::has('login'))
+                            <a class="forgot-password" href="{{ route('login') }}">
+                                {{ trans('global.have_an_account') }}
+                            </a>
+                        @endif
+                    </div>
+
+                    <div class="col-4">
+                        <button type="submit" class="btn btn-primary btn-block btn-flat">{{ trans('global.register') }}</button>
+                    </div>
+                </div>
+            </form>
+        </div><!-- End card-body -->
     </div>
 </div>
 @endsection
