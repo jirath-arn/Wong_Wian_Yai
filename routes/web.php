@@ -14,11 +14,12 @@ use App\Http\Controllers\SearchController;
 
 // Route::redirect('/', '/login');
 
-Route::get('/test', function () {
-    return view('index');
-});
+// Route::get('/test', function () {
+//     return view('client.detail');
+// });
 
 Route::get('/', [SearchController::class, 'index']);
+Route::get('/details/{restaurant_name}', [SearchController::class , 'show']);
 
 Auth::routes();
 

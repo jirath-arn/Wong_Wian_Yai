@@ -81,7 +81,7 @@
                     @for($i = 0; $i < count($restaurants); $i++)
                         <div class="col-md-6 align-items-stretch mt-4">
                             <div class="icon-box" data-aos="zoom-in" data-aos-delay="50">
-                                <h4><a href="#">{{ $restaurants[$i]->name }}</a></h4>
+                                <h4><a href="/details/{{ $restaurants[$i]->name }}">{{ $restaurants[$i]->name }}</a></h4>
 
                                 <span class="star-rate">{{ $reviews[$i]['score_reviews'] }} <i class="fa fa-star"></i></span>
                                 <span style="padding-left: 5px;">{{ $reviews[$i]['count_reviews'] }} </span>

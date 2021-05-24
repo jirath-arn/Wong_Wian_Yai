@@ -148,6 +148,9 @@
     <script src="{{ asset('js/vendor/php-email-form/validate.js') }}"></script>
     <script src="{{ asset('js/vendor/purecounter/purecounter.js') }}"></script>
     <script src="{{ asset('js/vendor/swiper/swiper-bundle.min.js') }}"></script>
+
+    <!-- jQuery JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     
     <!-- Main JS File -->
     <script src="{{ asset('js/main.js') }}"></script>

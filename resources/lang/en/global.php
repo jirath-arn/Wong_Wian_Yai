@@ -9,6 +9,7 @@ return [
     'city'                  => 'City',
     'cities'                => 'Cities',
     'contact'               => 'Contact',
+    'description'           => 'Description',
     'email'                 => 'Email',
     'forgot_password'       => 'Forgot password?',
     'have_an_account'       => 'You already have an account?',
@@ -20,6 +21,7 @@ return [
     ],
     'login'                 => 'Login',
     'logout'                => 'Logout',
+    'no_reviews'            => 'No Reviews',
     'our_services'          => 'Our Services',
     'password'              => 'Password',
     'password_reset'        => 'Reset Password',
@@ -32,8 +34,11 @@ return [
     'search'                => 'Search',
     'send_password_reset'   => 'Send Password Reset Link',
     'star_rating'           => 'Star Rating',
+    'submit'                => 'Submit',
     'subscribe'             => 'Subscribe',
     'useful_links'          => 'Useful Links',
     'username'              => 'Username',
+    'website'               => 'Website',
+    'write_review'          => 'Write a review',
 
 ];
