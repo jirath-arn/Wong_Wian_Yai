@@ -94,7 +94,7 @@
                                 <p>
                                     <strong>{{ trans('global.category') }}:</strong> {{ $restaurants[$i]->category->title }}<br>
                                     <strong>{{ trans('global.phone') }}:</strong> {{ $restaurants[$i]->telephone }}<br>
-                                    <strong>{{ trans('global.city') }}:</strong> {{ $restaurants[$i]->address }}
+                                    <strong>{{ trans('global.address') }}:</strong> {{ $restaurants[$i]->address }}
                                 </p>
                                     
                                 <hr>

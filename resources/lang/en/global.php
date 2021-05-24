@@ -4,6 +4,7 @@ return [
 //a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z
     'about'                 => 'About',
     'about_us'              => 'About us',
+    'address'               => 'Address',
     'category'              => 'Category',
     'categories'            => 'Categories',
     'city'                  => 'City',

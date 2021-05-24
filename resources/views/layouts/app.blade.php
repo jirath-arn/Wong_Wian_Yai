@@ -58,12 +58,28 @@
                         @else
                             <li class="dropdown"><a class="getstarted scrollto" href="#" style="color: #fff;"><span>{{ trans('global.username') }} : <label style="text-transform: none;">{{ Auth::user()->username }}</label></span> <i class="bi bi-chevron-down"></i></a>
                                 <ul>
-                                    @can('review_delete')
-                                        <li><a href="#">Review Delete</a></li>
+                                    @can('category_access')
+                                        <li><a href="#">{{ trans('cruds.category.title') }}<i class="bi bi-tags"></i></a></li>
+                                    @endcan
+
+                                    @can('restaurant_access')
+                                        <li><a href="#">{{ trans('cruds.restaurant.title') }}<i class="bi bi-shop"></i></a></li>
+                                    @endcan
+
+                                    @can('review_access')
+                                        <li><a href="#">{{ trans('cruds.review.title') }}<i class="bi bi-chat-right-text"></i></a></li>
+                                    @endcan
+
+                                    @can('permission_access')
+                                        <li><a href="#">{{ trans('cruds.permission.title') }}<i class="bi bi-key"></i></a></li>
+                                    @endcan
+
+                                    @can('role_access')
+                                        <li><a href="#">{{ trans('cruds.role.title') }}<i class="bi bi-person-bounding-box"></i></a></li>
                                     @endcan
 
                                     <li>
-                                        <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ trans('global.logout') }}</a>
+                                        <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ trans('global.logout') }}<i class="bi bi-x-circle"></i></a>
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                             @csrf
                                         </form>

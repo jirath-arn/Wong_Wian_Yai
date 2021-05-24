@@ -4,6 +4,7 @@ return [
 
     'about'                 => 'เกี่ยวกับ',
     'about_us'              => 'เกี่ยวกับเรา',
+    'address'               => 'ที่อยู่',
     'category'              => 'ประเภท',
     'categories'            => 'ประเภท',
     'city'                  => 'จังหวัด',

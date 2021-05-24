@@ -75,6 +75,96 @@ class PermissionsTableSeeder extends Seeder
                 'created_at' => '2019-09-15 06:10:05',
                 'updated_at' => '2019-09-15 06:10:05',
             ],
+            [
+                'id'         => 11,
+                'title'      => 'category_create',
+                'created_at' => '2019-09-15 06:10:05',
+                'updated_at' => '2019-09-15 06:10:05',
+            ],
+            [
+                'id'         => 12,
+                'title'      => 'category_edit',
+                'created_at' => '2019-09-15 06:10:05',
+                'updated_at' => '2019-09-15 06:10:05',
+            ],
+            [
+                'id'         => 13,
+                'title'      => 'category_show',
+                'created_at' => '2019-09-15 06:10:05',
+                'updated_at' => '2019-09-15 06:10:05',
+            ],
+            [
+                'id'         => 14,
+                'title'      => 'category_delete',
+                'created_at' => '2019-09-15 06:10:05',
+                'updated_at' => '2019-09-15 06:10:05',
+            ],
+            [
+                'id'         => 15,
+                'title'      => 'category_access',
+                'created_at' => '2019-09-15 06:10:05',
+                'updated_at' => '2019-09-15 06:10:05',
+            ],
+            [
+                'id'         => 16,
+                'title'      => 'permission_create',
+                'created_at' => '2019-09-15 06:10:05',
+                'updated_at' => '2019-09-15 06:10:05',
+            ],
+            [
+                'id'         => 17,
+                'title'      => 'permission_edit',
+                'created_at' => '2019-09-15 06:10:05',
+                'updated_at' => '2019-09-15 06:10:05',
+            ],
+            [
+                'id'         => 18,
+                'title'      => 'permission_show',
+                'created_at' => '2019-09-15 06:10:05',
+                'updated_at' => '2019-09-15 06:10:05',
+            ],
+            [
+                'id'         => 19,
+                'title'      => 'permission_delete',
+                'created_at' => '2019-09-15 06:10:05',
+                'updated_at' => '2019-09-15 06:10:05',
+            ],
+            [
+                'id'         => 20,
+                'title'      => 'permission_access',
+                'created_at' => '2019-09-15 06:10:05',
+                'updated_at' => '2019-09-15 06:10:05',
+            ],
+            [
+                'id'         => 21,
+                'title'      => 'role_create',
+                'created_at' => '2019-09-15 06:10:05',
+                'updated_at' => '2019-09-15 06:10:05',
+            ],
+            [
+                'id'         => 22,
+                'title'      => 'role_edit',
+                'created_at' => '2019-09-15 06:10:05',
+                'updated_at' => '2019-09-15 06:10:05',
+            ],
+            [
+                'id'         => 23,
+                'title'      => 'role_show',
+                'created_at' => '2019-09-15 06:10:05',
+                'updated_at' => '2019-09-15 06:10:05',
+            ],
+            [
+                'id'         => 24,
+                'title'      => 'role_delete',
+                'created_at' => '2019-09-15 06:10:05',
+                'updated_at' => '2019-09-15 06:10:05',
+            ],
+            [
+                'id'         => 25,
+                'title'      => 'role_access',
+                'created_at' => '2019-09-15 06:10:05',
+                'updated_at' => '2019-09-15 06:10:05',
+            ],
         ];
 
         Permission::insert($permissions);

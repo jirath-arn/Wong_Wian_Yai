@@ -37,7 +37,7 @@
                             <strong>{{ trans('global.description') }}:</strong> {{ $restaurant[0]->description }}<br>
                             <strong>{{ trans('global.category') }}:</strong> {{ $restaurant[0]->category->title }}<br>
                             <strong>{{ trans('global.phone') }}:</strong> {{ $restaurant[0]->telephone }}<br>
-                            <strong>{{ trans('global.city') }}:</strong> {{ $restaurant[0]->address }}<br>
+                            <strong>{{ trans('global.address') }}:</strong> {{ $restaurant[0]->address }}<br>
                             <strong>{{ trans('global.website') }}:</strong>
                             @if ($restaurant[0]->website != null)
                                 <a href="{{ $restaurant[0]->website }}" target="_blank"> {{ $restaurant[0]->website }}</a>
