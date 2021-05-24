@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\CRUDs;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Symfony\Component\HttpFoundation\Response;
+use Gate;
 use App\Models\Role;
 
 class RoleController extends Controller
@@ -15,8 +17,10 @@ class RoleController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('role_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         // $roles = Role::all();
         // return view('admin.roles.index', compact('roles'));
+        return view('cruds.roles.index');
     }
 
     /**
@@ -27,6 +31,7 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
+        abort_if(Gate::denies('role_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         // return view('admin.roles.show', compact('role'));
     }
 
@@ -38,6 +43,7 @@ class RoleController extends Controller
 
     public function create()
     {
+        abort_if(Gate::denies('role_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         // $roles = Role::all()->pluck('name_route', 'id')->prepend(trans('global.pleaseSelect'), '');
         // return view('admin.roles.create', compact('roles'));
     }
@@ -73,6 +79,7 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
+        abort_if(Gate::denies('role_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         // $roles = Role::all()->pluck('name_route', 'id')->prepend(trans('global.pleaseSelect'), '');
         // $role->load('route');
         // return view('admin.roles.edit', compact('roles', 'role'));
@@ -107,6 +114,7 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
+        abort_if(Gate::denies('role_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         // $role->delete();
         // return redirect()->route('admin.roles.index');
     }

@@ -5,6 +5,9 @@ return [
         'title'          => 'ตั้งค่า',
         'title_singular' => 'ตั้งค่า',
     ],
+    'profile'       => [
+        'title'          => 'ประวัติของฉัน',
+    ],
     'restaurant'    => [
         'title'             => 'ร้านอาหาร',
         'title_singular'    => 'ร้านอาหาร',
@@ -36,6 +39,13 @@ return [
     'role'          => [
         'title'             => 'ตำแหน่ง',
         'title_singular'    => 'ตำแหน่ง',
+        'fields'            => [
+            'id'                       => 'ID',
+        ],
+    ],
+    'user'          => [
+        'title'             => 'ผู้ใช้งาน',
+        'title_singular'    => 'ผู้ใช้งาน',
         'fields'            => [
             'id'                       => 'ID',
         ],

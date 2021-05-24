@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\CRUDs;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Symfony\Component\HttpFoundation\Response;
+use Gate;
 use App\Models\Restaurant;
 
 class RestaurantController extends Controller
@@ -15,8 +17,10 @@ class RestaurantController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('restaurant_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         // $restaurants = Restaurant::all();
         // return view('admin.restaurants.index', compact('restaurants'));
+        return view('cruds.restaurants.index');
     }
 
     /**
@@ -27,6 +31,7 @@ class RestaurantController extends Controller
      */
     public function show(Restaurant $restaurant)
     {
+        abort_if(Gate::denies('restaurant_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         // return view('admin.restaurants.show', compact('restaurant'));
     }
 
@@ -38,6 +43,7 @@ class RestaurantController extends Controller
 
     public function create()
     {
+        abort_if(Gate::denies('restaurant_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         // $restaurants = Restaurant::all()->pluck('name_route', 'id')->prepend(trans('global.pleaseSelect'), '');
         // return view('admin.restaurants.create', compact('restaurants'));
     }
@@ -73,6 +79,7 @@ class RestaurantController extends Controller
      */
     public function edit(Restaurant $restaurant)
     {
+        abort_if(Gate::denies('restaurant_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         // $restaurants = Restaurant::all()->pluck('name_route', 'id')->prepend(trans('global.pleaseSelect'), '');
         // $restaurant->load('route');
         // return view('admin.restaurants.edit', compact('restaurants', 'restaurant'));
@@ -107,6 +114,7 @@ class RestaurantController extends Controller
      */
     public function destroy(Restaurant $restaurant)
     {
+        abort_if(Gate::denies('restaurant_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         // $restaurant->delete();
         // return redirect()->route('admin.restaurants.index');
     }

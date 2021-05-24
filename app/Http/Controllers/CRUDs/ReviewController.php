@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\CRUDs;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Symfony\Component\HttpFoundation\Response;
+use Gate;
 use App\Models\Review;
 
 class ReviewController extends Controller
@@ -15,8 +17,10 @@ class ReviewController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('review_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         // $reviews = Review::all();
         // return view('admin.reviews.index', compact('reviews'));
+        return view('cruds.reviews.index');
     }
 
     /**
@@ -27,6 +31,7 @@ class ReviewController extends Controller
      */
     public function show(Review $review)
     {
+        abort_if(Gate::denies('review_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         // return view('admin.reviews.show', compact('review'));
     }
 
@@ -38,6 +43,7 @@ class ReviewController extends Controller
 
     public function create()
     {
+        abort_if(Gate::denies('review_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         // $reviews = Review::all()->pluck('name_route', 'id')->prepend(trans('global.pleaseSelect'), '');
         // return view('admin.reviews.create', compact('reviews'));
     }
@@ -73,6 +79,7 @@ class ReviewController extends Controller
      */
     public function edit(Review $review)
     {
+        abort_if(Gate::denies('review_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         // $reviews = Review::all()->pluck('name_route', 'id')->prepend(trans('global.pleaseSelect'), '');
         // $review->load('route');
         // return view('admin.reviews.edit', compact('reviews', 'review'));
@@ -107,6 +114,7 @@ class ReviewController extends Controller
      */
     public function destroy(Review $review)
     {
+        abort_if(Gate::denies('review_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         // $review->delete();
         // return redirect()->route('admin.reviews.index');
     }

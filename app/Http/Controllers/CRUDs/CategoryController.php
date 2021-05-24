@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\CRUDs;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Symfony\Component\HttpFoundation\Response;
+use Gate;
 use App\Models\Category;
 
 class CategoryController extends Controller
@@ -15,8 +17,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('category_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         // $categories = Category::all();
         // return view('admin.categories.index', compact('categories'));
+        return view('cruds.categories.index');
     }
 
     /**
@@ -27,6 +31,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
+        abort_if(Gate::denies('category_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         // return view('admin.categories.show', compact('category'));
     }
 
@@ -38,6 +43,7 @@ class CategoryController extends Controller
 
     public function create()
     {
+        abort_if(Gate::denies('category_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         // $categories = Category::all()->pluck('name_route', 'id')->prepend(trans('global.pleaseSelect'), '');
         // return view('admin.categories.create', compact('categories'));
     }
@@ -73,6 +79,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
+        abort_if(Gate::denies('category_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         // $categories = Category::all()->pluck('name_route', 'id')->prepend(trans('global.pleaseSelect'), '');
         // $category->load('route');
         // return view('admin.categories.edit', compact('categories', 'category'));
@@ -107,6 +114,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        abort_if(Gate::denies('category_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         // $category->delete();
         // return redirect()->route('admin.categories.index');
     }

@@ -32,7 +32,7 @@ class SearchController extends Controller
             $reviews[$i] = array('score_reviews' => $score_avg_reviews, 'count_reviews' => $count_reviews);
         }
 
-        return view('client.search', compact('categories', 'restaurants', 'reviews'));
+        return view('search', compact('categories', 'restaurants', 'reviews'));
     }
 
     public function show(Request $request, $name)
@@ -55,6 +55,6 @@ class SearchController extends Controller
 
         $rating = array('score_reviews' => $score_avg_reviews, 'count_reviews' => $count_reviews, 'count_pages' => $count_pages);
 
-        return view('client.detail', compact('restaurant', 'rating', 'reviews'));
+        return view('details', compact('restaurant', 'rating', 'reviews'));
     }
 }

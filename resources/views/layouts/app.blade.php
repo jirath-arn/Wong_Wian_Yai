@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="{{ asset('css/vendor/cloudflare-flag-icon/css/flag-icon.min.css') }}">
 
     <!-- Main CSS File -->
-    <link rel="stylesheet" href="{{ asset('css/welcome.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
     @yield('styles')
 </head>
@@ -42,9 +42,9 @@
                 <nav id="navbar" class="navbar">
                     <ul>
                         <li><a class="nav-link scrollto active" href="#hero">{{ trans('global.home') }}</a></li>
-                        <li><a class="nav-link scrollto" href="#">{{ trans('global.about') }}</a></li>
+                        <li><a class="nav-link scrollto" href="#footer">{{ trans('global.about') }}</a></li>
                         <li><a class="nav-link scrollto" href="#restaurants">{{ trans('global.search') }}</a></li>
-                        <li><a class="nav-link scrollto" href="#">{{ trans('global.contact') }}</a></li>
+                        <li><a class="nav-link scrollto" href="#footer">{{ trans('global.contact') }}</a></li>
                         <li class="dropdown"><a href="#"><span>{{ trans('global.languages') }}</span> <i class="bi bi-chevron-down"></i></a>
                             <ul>
                                 <li><a href="{{ url()->current() }}?change_language=en">{{ trans('global.countries.en') }}<span class="flag-icon flag-icon-gb"></span></a></li>
@@ -58,26 +58,34 @@
                         @else
                             <li class="dropdown"><a class="getstarted scrollto" href="#" style="color: #fff;"><span>{{ trans('global.username') }} : <label style="text-transform: none;">{{ Auth::user()->username }}</label></span> <i class="bi bi-chevron-down"></i></a>
                                 <ul>
+                                    <li><a href="#">{{ trans('cruds.profile.title') }}<i class="bi bi-person-fill"></i></a></li>
+                                    <li><div class="line"></div></li>
+
                                     @can('category_access')
-                                        <li><a href="#">{{ trans('cruds.category.title') }}<i class="bi bi-tags"></i></a></li>
+                                        <li><a href="{{ route('categories.index') }}">{{ trans('cruds.category.title') }}<i class="bi bi-tags"></i></a></li>
                                     @endcan
 
                                     @can('restaurant_access')
-                                        <li><a href="#">{{ trans('cruds.restaurant.title') }}<i class="bi bi-shop"></i></a></li>
+                                        <li><a href="{{ route('restaurants.index') }}">{{ trans('cruds.restaurant.title') }}<i class="bi bi-shop"></i></a></li>
                                     @endcan
 
                                     @can('review_access')
-                                        <li><a href="#">{{ trans('cruds.review.title') }}<i class="bi bi-chat-right-text"></i></a></li>
+                                        <li><a href="{{ route('reviews.index') }}">{{ trans('cruds.review.title') }}<i class="bi bi-chat-right-text"></i></a></li>
                                     @endcan
 
                                     @can('permission_access')
-                                        <li><a href="#">{{ trans('cruds.permission.title') }}<i class="bi bi-key"></i></a></li>
+                                        <li><a href="{{ route('permissions.index') }}">{{ trans('cruds.permission.title') }}<i class="bi bi-key"></i></a></li>
                                     @endcan
 
                                     @can('role_access')
-                                        <li><a href="#">{{ trans('cruds.role.title') }}<i class="bi bi-person-bounding-box"></i></a></li>
+                                        <li><a href="{{ route('roles.index') }}">{{ trans('cruds.role.title') }}<i class="bi bi-person-bounding-box"></i></a></li>
                                     @endcan
 
+                                    @can('user_access')
+                                        <li><a href="{{ route('users.index') }}">{{ trans('cruds.user.title') }}<i class="bi bi-people"></i></a></li>
+                                    @endcan
+
+                                    <li><div class="line"></div></li>
                                     <li>
                                         <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ trans('global.logout') }}<i class="bi bi-x-circle"></i></a>
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -113,9 +121,9 @@
                         <h4>{{ trans('global.useful_links') }}</h4>
                         <ul>
                             <li><i class="bx bx-chevron-right"></i> <a href="#hero">{{ trans('global.home') }}</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">{{ trans('global.about_us') }}</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#footer">{{ trans('global.about_us') }}</a></li>
                             <li><i class="bx bx-chevron-right"></i> <a href="#restaurants">{{ trans('global.search') }}</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">{{ trans('global.contact') }}</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#footer">{{ trans('global.contact') }}</a></li>
                         </ul>
                     </div>
                     <div class="col-lg-3 col-md-6 footer-links">
@@ -169,7 +177,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     
     <!-- Main JS File -->
-    <script src="{{ asset('js/main.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
     
     @yield('scripts')
 </body>

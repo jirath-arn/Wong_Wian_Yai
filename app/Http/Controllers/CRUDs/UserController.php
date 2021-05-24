@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\CRUDs;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Symfony\Component\HttpFoundation\Response;
+use Gate;
 use App\Models\User;
 
 class UserController extends Controller
@@ -15,8 +17,10 @@ class UserController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         // $users = User::all();
         // return view('admin.users.index', compact('users'));
+        return view('cruds.users.index');
     }
 
     /**
@@ -27,6 +31,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        abort_if(Gate::denies('user_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         // return view('admin.users.show', compact('user'));
     }
 
@@ -38,6 +43,7 @@ class UserController extends Controller
 
     public function create()
     {
+        abort_if(Gate::denies('user_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         // $users = User::all()->pluck('name_route', 'id')->prepend(trans('global.pleaseSelect'), '');
         // return view('admin.users.create', compact('users'));
     }
@@ -73,6 +79,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        abort_if(Gate::denies('user_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         // $users = User::all()->pluck('name_route', 'id')->prepend(trans('global.pleaseSelect'), '');
         // $user->load('route');
         // return view('admin.users.edit', compact('users', 'user'));
@@ -107,6 +114,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        abort_if(Gate::denies('user_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         // $user->delete();
         // return redirect()->route('admin.users.index');
     }
