@@ -1,7 +1,7 @@
 @extends('layouts.auth')
 
 @section('head')
-    <title>{{ trans('panel.page_login') }}</title>
+    <title>{{ trans('panel.page_') }}{{ trans('global.login') }}</title>
 @endsection
 
 @section('content')

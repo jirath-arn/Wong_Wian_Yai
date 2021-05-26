@@ -5,8 +5,6 @@ return [
     'site_title'            => 'WongWianYai',
     'page_'                 => 'WongWianYai - ',
     'page_search'           => 'WongWianYai - รีวิวร้านอาหาร',
-    'page_login'            => 'WongWianYai - เข้าสู่ระบบ',
-    'page_register'         => 'WongWianYai - ลงทะเบียน',
     'popular_restaurants'   => 'ร้านอาหารยอดนิยม',
     'example_search'        => 'ตัวอย่าง ประเภท, ร้านอาหาร, เมือง',
     'search_restaurants'    => 'ค้นหาร้านอาหาร',

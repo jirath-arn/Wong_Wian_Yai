@@ -18,9 +18,11 @@ class PermissionController extends Controller
     public function index()
     {
         abort_if(Gate::denies('permission_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        // $permissions = Permission::all();
-        // return view('admin.permissions.index', compact('permissions'));
-        return view('cruds.permissions.index');
+
+        $permissions = Permission::all();
+        
+        return view('cruds.permissions.index', compact('permissions'));
+
     }
 
     /**
