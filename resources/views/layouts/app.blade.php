@@ -14,6 +14,12 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
+    <!-- Data Table -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.0/css/select.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.2.4/css/buttons.dataTables.min.css">
+
     <!-- Vendor CSS Files -->
     <link rel="stylesheet" href="{{ asset('css/vendor/aos/aos.css') }}">
     <link rel="stylesheet" href="{{ asset('css/vendor/bootstrap/css/bootstrap.min.css') }}">
@@ -178,6 +184,58 @@
     
     <!-- Main JS File -->
     <script src="{{ asset('js/app.js') }}"></script>
+
+    <!-- Data Table -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/select/1.3.0/js/dataTables.select.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.print.min.js"></script>
+
+    <script>
+        $(function() {
+            let printButtonTrans = '{{ trans('global.print') }}'
+            let languages = {
+                'en': 'https://cdn.datatables.net/plug-ins/1.10.19/i18n/English.json',
+                'th': 'https://cdn.datatables.net/plug-ins/1.10.24/i18n/Thai.json'
+            };
+            
+            $.extend(true, $.fn.dataTable.Buttons.defaults.dom.button, { className: 'btn' })
+            $.extend(true, $.fn.dataTable.defaults, {
+                language: {
+                    url: languages['{{ app()->getLocale() }}']
+                },
+                columnDefs: [{
+                    orderable: false,
+                    className: 'select-checkbox',
+                    targets: 0
+                }, {
+                    orderable: false,
+                    searchable: false,
+                    targets: -1
+                }],
+                select: {
+                    style: 'multi+shift',
+                    selector: 'td:first-child'
+                },
+                order: [],
+                scrollX: true,
+                pageLength: 100,
+                dom: 'lBfrtip<"actions">',
+                buttons: [{
+                    extend: 'print',
+                    className: 'btn-secondary',
+                    text: printButtonTrans,
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                }]
+            });
+            
+            $.fn.dataTable.ext.classes.sPageButton = '';
+        });
+    </script>
     
     @yield('scripts')
 </body>

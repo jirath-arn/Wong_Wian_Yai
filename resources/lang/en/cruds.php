@@ -33,7 +33,10 @@ return [
         'title'             => 'Permissions',
         'title_singular'    => 'Permission',
         'fields'            => [
-            'id'                       => 'ID',
+            'id'                    => 'ID',
+            'title'                 => 'Title',
+            'created_at'            => 'Created At',
+            'updated_at'            => 'Updated At',
         ],
     ],
     'role'          => [

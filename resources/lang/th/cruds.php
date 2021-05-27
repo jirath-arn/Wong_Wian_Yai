@@ -33,7 +33,10 @@ return [
         'title'             => 'สิทธิ์',
         'title_singular'    => 'สิทธิ์',
         'fields'            => [
-            'id'                       => 'ID',
+            'id'                    => 'ไอดี',
+            'title'                 => 'หัวข้อ',
+            'created_at'            => 'สร้างเมื่อ',
+            'updated_at'            => 'อัปเดตเมื่อ',
         ],
     ],
     'role'          => [
