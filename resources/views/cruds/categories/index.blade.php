@@ -266,14 +266,14 @@
                             },
                             error: function (data) {
                                 var res = JSON.parse(data.responseText);
-                                console.log(data);
+
                                 alert(res.message);
                             }
                         });
                     }
                 }
             }
-            // dtButtons.push(deleteButton)
+            dtButtons.push(deleteButton)
         @endcan
   
         $.extend(true, $.fn.dataTable.defaults, {

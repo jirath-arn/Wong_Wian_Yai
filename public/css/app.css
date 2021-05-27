@@ -509,10 +509,11 @@ section {
 
 
 /*--------------------------------------------------------------
-  # Restaurants & Permissions & Categories
+  # Restaurants & Permissions & Categories & Roles
   --------------------------------------------------------------*/
 
 .permissions .icon-box,
+.roles .icon-box,
 .categories .icon-box,
 .restaurants .icon-box {
     padding: 40px 20px;
@@ -539,6 +540,7 @@ section {
 }
 
 .permissions .icon-box:hover,
+.roles .icon-box:hover,
 .categories .icon-box:hover,
 .restaurants .icon-box:hover {
     border-color: #fff;

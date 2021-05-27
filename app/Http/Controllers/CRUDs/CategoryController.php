@@ -78,7 +78,6 @@ class CategoryController extends Controller
 
         $categories = Category::whereIn('id', request('ids'))->get();
 
-        dd($categories);
         foreach ($categories as $category) {
             $category->restaurants()->delete();
             $category->delete();

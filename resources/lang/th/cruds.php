@@ -46,7 +46,10 @@ return [
         'title'             => 'ตำแหน่ง',
         'title_singular'    => 'ตำแหน่ง',
         'fields'            => [
-            'id'                       => 'ID',
+            'id'                    => 'ไอดี',
+            'title'                 => 'หัวข้อ',
+            'created_at'            => 'สร้างเมื่อ',
+            'updated_at'            => 'อัปเดตเมื่อ',
         ],
     ],
     'user'          => [
