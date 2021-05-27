@@ -56,7 +56,14 @@ return [
         'title'             => 'Users',
         'title_singular'    => 'User',
         'fields'            => [
-            'id'                       => 'ID',
+            'id'                    => 'ID',
+            'username'              => 'Username',
+            'email'                 => 'Email',
+            'email_verified_at'     => 'Email Verified At',
+            'password'              => 'Password',
+            'remember_token'        => 'Remember Token',
+            'created_at'            => 'Created At',
+            'updated_at'            => 'Updated At',
         ],
     ],
 ];

@@ -56,7 +56,14 @@ return [
         'title'             => 'ผู้ใช้งาน',
         'title_singular'    => 'ผู้ใช้งาน',
         'fields'            => [
-            'id'                       => 'ID',
+            'id'                    => 'ไอดี',
+            'username'              => 'ชื่อผู้ใช้',
+            'email'                 => 'อีเมล',
+            'email_verified_at'     => 'ตรวจสอบอีเมลเมื่อ',
+            'password'              => 'รหัสผ่าน',
+            'remember_token'        => 'โทเค็น',
+            'created_at'            => 'สร้างเมื่อ',
+            'updated_at'            => 'อัปเดตเมื่อ',
         ],
     ],
 ];

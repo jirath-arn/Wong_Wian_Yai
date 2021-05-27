@@ -44,4 +44,5 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Users
     Route::resource('users', UserController::class);
+    Route::post('users/destroy', [UserController::class, 'massDestroy'])->name('users.massDestroy');
 });
