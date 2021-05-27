@@ -47,13 +47,13 @@
                                                     <td></td>
                                                     <td>{{ $permission->id ?? '' }}</td>
                                                     <td>{{ $permission->title ?? '' }}</td>
-                                                    <td data-id="{{ $permission->id }}">
+                                                    <td>
                                                         @can('permission_show')
                                                             <button type="button" class="btn btn-xs btn-primary" id="btn-view" data-id="{{ $permission->id }}" data-toggle="modal" data-target="#viewModel">{{ trans('global.view') }}</button>
                                                         @endcan
 
                                                         @can('permission_edit')
-                                                            <button type="button" class="btn btn-xs btn-info" id="btn-edit" data-id="{{ $permission->id }}" data-toggle="modal" data-target="#formModel">{{ trans('global.edit') }}</button>
+                                                            <a class="btn btn-xs btn-info" href="{{ route('permissions.edit', $permission->id) . '#permissions' }}">{{ trans('global.edit') }}</a>
                                                         @endcan
 
                                                         @can('permission_delete')
@@ -74,32 +74,31 @@
                     </div><!-- End icon-box -->
                 </div>
                 
-                <!-- Permission Model -->
-                <div class="modal fade" id="formModel" aria-hidden="true">
+                <!-- Create Model -->
+                <div class="modal fade" id="createModel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 class="modal-title" id="titleModel"></h4>
+                                <h4 class="modal-title">{{ trans('global.create') }} {{ trans('cruds.permission.title_singular') }}</h4>
                             </div>
                             <div class="modal-body">
-                                <form id="myForm" name="myForm" class="form-horizontal" novalidate="">
+                                <form id="createForm" name="createForm" class="form-horizontal" novalidate="">
                                     <div class="form-group">
                                         <input type="text" class="form-control" id="title" name="title" placeholder="{{ trans('cruds.permission.fields.title') }}*" value="{{ old('title', null) }}">
-                                        <input type="hidden" id="idModel" value="">
                                     </div>
                                 </form>
                             </div>
                 
                             <!-- Button -->
                             <div class="modal-footer">
-                                <input type="submit" class="btn btn-model btn-flat" id="btnModel" value="Submit">
+                                <button type="button" class="btn btn-model btn-flat" id="btn-create">{{ trans('global.create') }}</button>
                             </div>
                         </div>
                     </div>
-                </div><!-- End Permission Modal -->
+                </div><!-- End Create Modal -->
 
 
-                <!-- View Permission Model -->
+                <!-- View Model -->
                 <div class="modal fade" id="viewModel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -136,11 +135,11 @@
                             </div>
                         </div>
                     </div>
-                </div><!-- End View Permission Modal -->
+                </div><!-- End View Modal -->
             </div>
         </div>
     </div>
-</section><!-- End Restaurants Section -->
+</section><!-- End Section -->
 @endsection
 
 @section('scripts')
@@ -169,48 +168,25 @@
             jQuery('#viewModel').modal('hide');
         });
 
-        // Edit Button
-        jQuery('body').on('click', '#btn-edit', function (event) {
-            event.preventDefault();
-            var id = $(this).data('id');
-            
-            $.get('permissions/' + id + '/edit', function (data) {
-                jQuery('#titleModel').html("{{ trans('global.edit') }} {{ trans('cruds.permission.title_singular') }}");
-                jQuery('#btnModel').val("{{ trans('global.edit') }}");
-                jQuery('#title').val(data.data.title);
-                jQuery('#idModel').val(data.data.id);
-                jQuery('#formModel').modal('show');
-            });
-        });
-
-        // Store and Update
-        jQuery('body').on('click', '#btnModel', function (event) {
+        // Store
+        jQuery('body').on('click', '#btn-create', function (event) {
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
                 }
             });
-
-            var state = jQuery('#btnModel').val();
-
-            if (state == "{{ trans('global.create') }}") {
-                var url = "{{ route('permissions.store') }}";
-            } else {
-                var id = jQuery('#idModel').val();
-                var url = 'permissions/' + id;
-            }
     
             event.preventDefault();
             $.ajax({
                 type: 'POST',
-                url: url,
+                url: "{{ route('permissions.store') }}",
                 data: {
                     title: jQuery('#title').val()
                 },
                 
                 success: function (data) {
-                    jQuery('#myForm').trigger("reset");
-                    jQuery('#formModel').modal('hide');
+                    jQuery('#createForm').trigger("reset");
+                    jQuery('#createModel').modal('hide');
                     window.location.hash = "#permissions";
                     location.reload();
                 },
@@ -232,6 +208,10 @@
     $(function () {
         let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
         
+        /****************************************
+         * Create
+         ****************************************/
+
         @can('permission_create')
             let addButtonTrans = '{{ trans('global.add') }} {{ trans('cruds.permission.title_singular') }}'
             let addButton = {
@@ -239,14 +219,16 @@
                 className: 'btn-success',
                 
                 action: function (e, dt, node, config) {
-                    jQuery('#titleModel').html("{{ trans('global.create') }} {{ trans('cruds.permission.title_singular') }}");
-                    jQuery('#btnModel').val("{{ trans('global.create') }}");
-                    jQuery('#myForm').trigger("reset");
-                    jQuery('#formModel').modal('show');
+                    jQuery('#createForm').trigger("reset");
+                    jQuery('#createModel').modal('show');
                 }
             }
             dtButtons.push(addButton)
         @endcan
+
+        /****************************************
+         * Delete Selected
+         ****************************************/
 
         @can('permission_delete')
             let deleteButtonTrans = '{{ trans('global.delete_selected') }}'
@@ -275,7 +257,7 @@
                             type: 'POST',
                             url: '{{ route('permissions.massDestroy') }}',
                             data: {
-                                ids: ids,
+                                ids: ids
                             },
                 
                             success: function (data) {
@@ -284,7 +266,7 @@
                             },
                             error: function (data) {
                                 var res = JSON.parse(data.responseText);
-                                console.log(data);
+
                                 alert(res.message);
                             }
                         });

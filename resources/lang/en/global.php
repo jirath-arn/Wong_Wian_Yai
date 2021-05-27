@@ -42,6 +42,7 @@ return [
     'remember_me'           => 'Remember Me',
     'review'                => 'Review',
     'reviews'               => 'Reviews',
+    'save'                  => 'Save',
     'search'                => 'Search',
     'send_password_reset'   => 'Send Password Reset Link',
     'show'                  => 'Show',

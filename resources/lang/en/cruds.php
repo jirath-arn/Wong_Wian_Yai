@@ -26,7 +26,10 @@ return [
         'title'             => 'Categories',
         'title_singular'    => 'Category',
         'fields'            => [
-            'id'                       => 'ID',
+            'id'                    => 'ID',
+            'title'                 => 'Title',
+            'created_at'            => 'Created At',
+            'updated_at'            => 'Updated At',
         ],
     ],
     'permission'    => [

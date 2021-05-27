@@ -10,112 +10,79 @@ use App\Models\Category;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         abort_if(Gate::denies('category_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        // $categories = Category::all();
-        // return view('admin.categories.index', compact('categories'));
-        return view('cruds.categories.index');
+        
+        $categories = Category::all();
+        
+        return view('cruds.categories.index', compact('categories'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
     public function show(Category $category)
     {
         abort_if(Gate::denies('category_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        // return view('admin.categories.show', compact('category'));
+        
+        return response()->json(['data' => $category]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
-    public function create()
-    {
-        abort_if(Gate::denies('category_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        // $categories = Category::all()->pluck('name_route', 'id')->prepend(trans('global.pleaseSelect'), '');
-        // return view('admin.categories.create', compact('categories'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'route_id' => 'required',
-        //     'license_plate' => 'required|max:10|unique:buses',
-        // ]);
+        abort_if(Gate::denies('category_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $request->validate([
+            'title' => 'required|unique:categories',
+        ]);
         
-        // $category = Category::find($request->category_id);
-        // $category->buses()->create([
-        //     'license_plate' => $request->license_plate,
-        //     'latitude' => 14.0695183,
-        //     'longitude' => 100.6032949,
-        // ]);
-        
-        // return redirect()->route('admin.categories.index');
+        Category::create($request->all());
+
+        return redirect(route('categories.index') . '#categories');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Category $category)
     {
         abort_if(Gate::denies('category_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        // $categories = Category::all()->pluck('name_route', 'id')->prepend(trans('global.pleaseSelect'), '');
-        // $category->load('route');
-        // return view('admin.categories.edit', compact('categories', 'category'));
+        
+        return view('cruds.categories.edit', compact('category'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        // $request->validate([
-        //     'route_id' => 'required',
-        //     'license_plate' => 'required|max:10',
-        // ]);
+        $request->validate([
+            'title' => 'required|unique:categories',
+        ]);
+
+        $category = Category::find($id);
+        $category->title = $request->title;
+        $category->save();
         
-        // $category = Category::find($id);
-        // $category->route_id = $request->route_id;
-        // $category->license_plate = $request->license_plate;
-        // $category->save();
-        // return redirect()->route('admin.categories.index');
+        return redirect(route('categories.index') . '#categories');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Category $category)
     {
         abort_if(Gate::denies('category_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        // $category->delete();
-        // return redirect()->route('admin.categories.index');
+
+        $category->restaurants()->delete();
+        $category->delete();
+        
+        return redirect(route('categories.index') . '#categories');
+    }
+
+    public function massDestroy(Request $request)
+    {
+        $request->validate([
+            'ids' => 'required|array',
+            'ids.*' => 'exists:categories,id',
+        ]);
+
+        $categories = Category::whereIn('id', request('ids'))->get();
+
+        dd($categories);
+        foreach ($categories as $category) {
+            $category->restaurants()->delete();
+            $category->delete();
+        }
+        return redirect(route('categories.index') . '#categories');
     }
 }

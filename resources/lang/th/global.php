@@ -42,6 +42,7 @@ return [
     'remember_me'           => 'จดจำไว้',
     'review'                => 'รีวิว',
     'reviews'               => 'รีวิว',
+    'save'                  => 'บันทึก',
     'search'                => 'ค้นหา',
     'send_password_reset'   => 'ส่งลิงก์รีเซ็ตรหัสผ่าน',
     'show'                  => 'แสดง',

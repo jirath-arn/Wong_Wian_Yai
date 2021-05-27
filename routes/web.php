@@ -26,6 +26,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Categories
     Route::resource('categories', CategoryController::class);
+    Route::post('categories/destroy', [PermissionController::class, 'massDestroy'])->name('categories.massDestroy');
         
     // Restaurants
     Route::resource('restaurants', RestaurantController::class);
@@ -35,8 +36,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Permissions
     Route::resource('permissions', PermissionController::class);
-    Route::post('permissions/{id}', [PermissionController::class, 'update'])->name('permissions.massUpdate');
     Route::post('permissions/destroy', [PermissionController::class, 'massDestroy'])->name('permissions.massDestroy');
+
     // Roles
     Route::resource('roles', RoleController::class);
 

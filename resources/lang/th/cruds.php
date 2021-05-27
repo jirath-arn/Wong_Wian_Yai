@@ -26,7 +26,10 @@ return [
         'title'             => 'ประเภท',
         'title_singular'    => 'ประเภท',
         'fields'            => [
-            'id'                       => 'ID',
+            'id'                    => 'ไอดี',
+            'title'                 => 'หัวข้อ',
+            'created_at'            => 'สร้างเมื่อ',
+            'updated_at'            => 'อัปเดตเมื่อ',
         ],
     ],
     'permission'    => [
