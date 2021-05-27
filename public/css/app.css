@@ -513,6 +513,7 @@ section {
   --------------------------------------------------------------*/
 
 .users .icon-box,
+.reviews .icon-box,
 .permissions .icon-box,
 .roles .icon-box,
 .categories .icon-box,
@@ -541,6 +542,7 @@ section {
 }
 
 .users .icon-box:hover,
+.reviews .icon-box:hover,
 .permissions .icon-box:hover,
 .roles .icon-box:hover,
 .categories .icon-box:hover,

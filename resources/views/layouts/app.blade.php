@@ -64,8 +64,8 @@
                         @else
                             <li class="dropdown"><a class="getstarted scrollto" href="#" style="color: #fff;"><span>{{ trans('global.username') }} : <label style="text-transform: none;">{{ Auth::user()->username }}</label></span> <i class="bi bi-chevron-down"></i></a>
                                 <ul>
-                                    <li><a href="#">{{ trans('cruds.profile.title') }}<i class="bi bi-person-fill"></i></a></li>
-                                    <li><div class="line"></div></li>
+                                    {{-- <li><a href="#">{{ trans('cruds.profile.title') }}<i class="bi bi-person-fill"></i></a></li> --}}
+                                    {{-- <li><div class="line"></div></li> --}}
 
                                     @can('category_access')
                                         <li><a href="{{ route('categories.index') }}">{{ trans('cruds.category.title') }}<i class="bi bi-tags"></i></a></li>
@@ -91,7 +91,9 @@
                                         <li><a href="{{ route('users.index') }}">{{ trans('cruds.user.title') }}<i class="bi bi-people"></i></a></li>
                                     @endcan
 
-                                    <li><div class="line"></div></li>
+                                    @if(Gate::check('category_access') || Gate::check('restaurant_access') || Gate::check('review_access') || Gate::check('permission_access' ) || Gate::check('role_access') || Gate::check('user_access'))
+                                        <li><div class="line"></div></li>
+                                    @endif
                                     <li>
                                         <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ trans('global.logout') }}<i class="bi bi-x-circle"></i></a>
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

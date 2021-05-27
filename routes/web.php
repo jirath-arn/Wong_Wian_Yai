@@ -30,9 +30,11 @@ Route::group(['middleware' => ['auth']], function () {
         
     // Restaurants
     Route::resource('restaurants', RestaurantController::class);
+    Route::post('restaurants/destroy', [RestaurantController::class, 'massDestroy'])->name('restaurants.massDestroy');
 
     // Reviews
     Route::resource('reviews', ReviewController::class);
+    Route::post('reviews/destroy', [ReviewController::class, 'massDestroy'])->name('reviews.massDestroy');
 
     // Permissions
     Route::resource('permissions', PermissionController::class);

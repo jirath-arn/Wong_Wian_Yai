@@ -102,7 +102,7 @@
                     
                     <div class="col-md-12 align-items-stretch mt-4">
                         <div class="icon-box" data-aos="zoom-in" data-aos-delay="50">
-                            <form action="{{ route('reviews.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('reviews.store') }}" method="POST">
                                 <strong>{{ trans('global.star_rating') }}</strong><br>
                                 <div class="rate">
                                     <fieldset class="score-rating">
@@ -121,6 +121,7 @@
                                 
                                 <strong>{{ trans('global.description') }}</strong><br>
                                 <textarea class="description" name="description" style="height: 100%;"></textarea><br>
+                                <input type="hidden" name="restaurant_id" value="{{ $restaurant[0]->id }}">
 
                                 <div class="row justify-content-md-center">
                                     <button type="submit" class="btn btn-primary btn-block btn-flat" style="width: 100px;">{{ trans('global.submit') }}</button>
