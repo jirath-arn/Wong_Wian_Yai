@@ -64,6 +64,7 @@ return [
         'fields'            => [
             'id'                    => 'ไอดี',
             'title'                 => 'หัวข้อ',
+            'permissions'           => 'สิทธิ์',
             'created_at'            => 'สร้างเมื่อ',
             'updated_at'            => 'อัปเดตเมื่อ',
         ],

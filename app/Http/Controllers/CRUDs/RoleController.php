@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Gate;
 use App\Models\Role;
+use App\Models\Permission;
 
 class RoleController extends Controller
 {
@@ -23,18 +24,28 @@ class RoleController extends Controller
     {
         abort_if(Gate::denies('role_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
        
-        return response()->json(['data' => $role]);
+        return response()->json(['data' => $role, 'permissions' => $role->permissions]);
+    }
+
+    public function create()
+    {
+        abort_if(Gate::denies('role_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $permissions = Permission::all()->pluck('title', 'id');
+
+        return view('cruds.roles.create', compact('permissions'));
     }
 
     public function store(Request $request)
     {
-        abort_if(Gate::denies('role_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
         $request->validate([
             'title' => 'required|unique:roles',
+            'permissions.*' => ['integer'],
+            'permissions' => ['required', 'array'],
         ]);
 
-        Role::create($request->all());
+        $role = Role::create($request->all());
+        $role->permissions()->sync($request->input('permissions', []));
 
         return redirect(route('roles.index') . '#roles');
     }
@@ -42,19 +53,24 @@ class RoleController extends Controller
     public function edit(Role $role)
     {
         abort_if(Gate::denies('role_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        
-        return view('cruds.roles.edit', compact('role'));
+    
+        $permissions = Permission::all()->pluck('title', 'id');
+        $role->load('permissions');
+
+        return view('cruds.roles.edit', compact('permissions', 'role'));
     }
 
     public function update(Request $request, $id)
     {
         $request->validate([
-            'title' => 'required|unique:roles',
+            'title' => 'required',
+            'permissions.*' => ['integer'],
+            'permissions' => ['required', 'array'],
         ]);
 
         $role = Role::find($id);
-        $role->title = $request->title;
-        $role->save();
+        $role->update($request->all());
+        $role->permissions()->sync($request->input('permissions', []));
         
         return redirect(route('roles.index') . '#roles');
     }

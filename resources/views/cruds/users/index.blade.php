@@ -152,7 +152,7 @@
 
                 var roles = '';
                 data.roles.forEach(element => {
-                    roles += '<span class="badge badge-info">' + element.title + '</span><br>';
+                    roles += '<span class="badge badge-info">' + element.title + '</span>&nbsp;';
                 });
 
                 $('#viewModel').modal('show');

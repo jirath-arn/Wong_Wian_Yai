@@ -38,6 +38,7 @@
                                                 <th></th>
                                                 <th>{{ trans('cruds.role.fields.id') }}</th>
                                                 <th>{{ trans('cruds.role.fields.title') }}</th>
+                                                <th>{{ trans('cruds.role.fields.permissions') }}</th>
                                                 <th>{{ trans('global.actions') }}</th>
                                             </tr>
                                         </thead>
@@ -47,6 +48,11 @@
                                                     <td></td>
                                                     <td>{{ $role->id ?? '' }}</td>
                                                     <td>{{ $role->title ?? '' }}</td>
+                                                    <td>
+                                                        @foreach($role->permissions as $key => $item)
+                                                            <span class="badge badge-info">{{ $item->title }}</span>
+                                                        @endforeach
+                                                    </td>
                                                     <td>
                                                         @can('role_show')
                                                             <button type="button" class="btn btn-xs btn-primary" id="btn-view" data-id="{{ $role->id }}" data-toggle="modal" data-target="#viewModel">{{ trans('global.view') }}</button>
@@ -73,30 +79,6 @@
                         </div><!-- End Card -->
                     </div><!-- End icon-box -->
                 </div>
-                
-                <!-- Create Model -->
-                <div class="modal fade" id="createModel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">{{ trans('global.create') }} {{ trans('cruds.role.title_singular') }}</h4>
-                            </div>
-                            <div class="modal-body">
-                                <form id="createForm" name="createForm" class="form-horizontal" novalidate="">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="title" name="title" placeholder="{{ trans('cruds.role.fields.title') }}*" value="{{ old('title', null) }}">
-                                    </div>
-                                </form>
-                            </div>
-                
-                            <!-- Button -->
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-model btn-flat" id="btn-create">{{ trans('global.create') }}</button>
-                            </div>
-                        </div>
-                    </div>
-                </div><!-- End Create Modal -->
-
 
                 <!-- View Model -->
                 <div class="modal fade" id="viewModel" aria-hidden="true">
@@ -114,8 +96,11 @@
                                         </tr>
                                         <tr>
                                             <th>{{ trans('cruds.role.fields.title') }}</th>
-                                            <td id="role_title">
-                                            </td>
+                                            <td id="role_title"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>{{ trans('cruds.role.fields.permissions') }}</th>
+                                            <td id="role_permissions"></td>
                                         </tr>
                                         <tr>
                                             <th>{{ trans('cruds.role.fields.created_at') }}</th>
@@ -152,9 +137,16 @@
             var id = $(this).data('id');
             
             $.get('roles/' + id, function (data) {
+                
+                var permissions = '';
+                data.permissions.forEach(element => {
+                    permissions += '<span class="badge badge-info">' + element.title + '</span>&nbsp;';
+                });
+
                 $('#viewModel').modal('show');
                 $('#role_id').html(data.data.id);
                 $('#role_title').html(data.data.title);
+                $('#role_permissions').html(permissions);
      
                 var created_at = new Date(data.data.created_at);
                 $('#role_created_at').html(created_at.toLocaleString());
@@ -166,40 +158,6 @@
         
         jQuery('#btn-close').click(function (e) {
             jQuery('#viewModel').modal('hide');
-        });
-
-        // Store
-        jQuery('body').on('click', '#btn-create', function (event) {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                }
-            });
-    
-            event.preventDefault();
-            $.ajax({
-                type: 'POST',
-                url: "{{ route('roles.store') }}",
-                data: {
-                    title: jQuery('#title').val()
-                },
-                
-                success: function (data) {
-                    jQuery('#createForm').trigger("reset");
-                    jQuery('#createModel').modal('hide');
-                    window.location.hash = "#roles";
-                    location.reload();
-                },
-                error: function (data) {
-                    var res = JSON.parse(data.responseText);
-
-                    if (data.status == 500) {
-                        alert(res.message);
-                    } else {
-                        alert(res.errors.title[0]);
-                    }
-                }
-            });
         });
     });
 </script>
@@ -219,8 +177,7 @@
                 className: 'btn-success',
                 
                 action: function (e, dt, node, config) {
-                    jQuery('#createForm').trigger("reset");
-                    jQuery('#createModel').modal('show');
+                    window.location.href = '/roles/create#roles';
                 }
             }
             dtButtons.push(addButton)

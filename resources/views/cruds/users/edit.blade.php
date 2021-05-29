@@ -66,7 +66,7 @@
                                         @endif
                                     </div><br>
 
-                                    <!-- Create -->
+                                    <!-- Save -->
                                     <div class="row justify-content-md-center">
                                         <input class="btn btn-model btn-flat" type="submit" style="width: 100px;" value="{{ trans('global.save') }}">
                                     </div>
