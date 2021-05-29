@@ -16,11 +16,15 @@ class ReviewController extends Controller
         abort_if(Gate::denies('review_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         
         $user = Auth::user();
+        $roles_list = array();
 
-        // Check Admin
-        if ($user->roles[0]->id == 1) {
+        foreach ($user->roles as $role) {
+            array_push($roles_list, $role->title);
+        }
+
+        // Check Admin Role
+        if (in_array('Admin', $roles_list)) {
             $reviews = Review::all();
-
         } else {
             $reviews = Review::where('user_id', '=', $user->id)->get();
         }
@@ -42,24 +46,24 @@ class ReviewController extends Controller
         return redirect(url('/') . '#restaurants');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Review  $review
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {   
         $request->validate([
             'description' => 'required',
+            'rating' => 'required',
         ]);
+        
+        $user = Auth::user();
+        
+        $review = new Review;
+        $review->user_id = $user->id;
+        $review->restaurant_id = $request->restaurant_id;
+        $review->description = $request->description;
+        $review->score = $request->rating;
+        $review->save();
 
-
-        dd($request->restaurant_id);
-        Review::create($request->all());
-
-        return redirect(route('reviews.index') . '#reviews');
+        // return redirect()->back();
+        return redirect()->to(url()->previous() . '#restaurants');
     }
 
     public function edit(Review $review)

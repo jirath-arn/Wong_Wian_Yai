@@ -22,7 +22,18 @@
                 <div class="col-md-12 align-items-stretch mt-4">
                     <div class="icon-box" data-aos="zoom-in" data-aos-delay="50">
                         <h2 style="text-align: center;"><a href="#restaurants">{{ $restaurant[0]->name }}</a></h2><br>
-                        <img src="{{ asset('img/hero-bg.jpg') }}" alt="Restaurant" style="width:60%;  margin-left: auto; margin-right: auto; display: block;">
+                        
+                        <div class="slideshow-container" id="group-img">
+                            @for ($j = 0; $j < count($restaurant[0]->images); $j++)
+                                <div class="mySlides">
+                                    <img src="{{ asset('storage/' . $restaurant[0]->images[$j]->path) }}">
+                                    <div class="text">{{ $j+1 }} / {{ count($restaurant[0]->images) }}</div>
+                                </div>
+                            @endfor
+
+                            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                        </div>
                         <hr>
                         
                         <span class="star-rate">{{ $rating['score_reviews'] }} <i class="fa fa-star"></i></span>
@@ -61,12 +72,19 @@
                     @foreach ($reviews as $review)
                         <div class="col-md-12 align-items-stretch mt-4">
                             <div class="icon-box" data-aos="zoom-in" data-aos-delay="50">
-                                @for($i = 0; $i < $review->score; $i++)
+
+                                @for($i = 0; $i < floor($review->score); $i++)
                                     <span class="fa fa-star" style="color: orange;"></span>
                                 @endfor
-                                @for($i = $review->score; $i < 5; $i++)
-                                    <span class="fa fa-star"></span>
+
+                                @if (floor($review->score) != $review->score)
+                                    <span class="fa fa-star-half-o" style="color: orange;"></span>
+                                @endif
+
+                                @for($i = ceil($review->score); $i < 5; $i++)
+                                    <span class="fa fa-star-o" style="color: orange;"></span>
                                 @endfor
+
                                 <p>
                                     <strong>{{ $review->user->username }} :</strong> {{ $review->description }}<br><br>
                                     {{ $review->updated_at }}
@@ -102,7 +120,9 @@
                     
                     <div class="col-md-12 align-items-stretch mt-4">
                         <div class="icon-box" data-aos="zoom-in" data-aos-delay="50">
-                            <form action="{{ route('reviews.store') }}" method="POST">
+                            <form action="{{ route('reviews.store') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                
                                 <strong>{{ trans('global.star_rating') }}</strong><br>
                                 <div class="rate">
                                     <fieldset class="score-rating">
@@ -120,7 +140,7 @@
                                 </div><br><br>
                                 
                                 <strong>{{ trans('global.description') }}</strong><br>
-                                <textarea class="description" name="description" style="height: 100%;"></textarea><br>
+                                <textarea name="description" style="width: 100%;" rows="7"></textarea><br>
                                 <input type="hidden" name="restaurant_id" value="{{ $restaurant[0]->id }}">
 
                                 <div class="row justify-content-md-center">
@@ -138,6 +158,60 @@
 
 @section('styles')
 <style>
+.mySlides {
+    display: none
+}
+
+img {
+    vertical-align: middle;
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+
+.slideshow-container {
+    width: 70%;
+    position: relative;
+    margin: auto;
+}
+
+.prev,
+.next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.prev:hover,
+.next:hover {
+    background-color: #f1f1f1;
+    color: black;
+}
+
+.text {
+    color: #f2f2f2;
+    font-size: 15px;
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 8px;
+    width: 100%;
+    text-align: center;
+}
+
 .btn-primary {
     color: #fff;
     background-color: #009970;
@@ -259,5 +333,25 @@ input[type=submit].btn-block {
         // width: 900,
         // height: 300,
     });
+</script>
+
+<script>
+    var slideIndex = 1;
+    showSlides(slideIndex);
+    
+    function plusSlides(n) {
+      showSlides(slideIndex += n);
+    }
+  
+    function showSlides(n) {
+      var i;
+      var slides = document.getElementById("group-img").getElementsByClassName("mySlides");
+      if (n > slides.length) {slideIndex = 1}    
+      if (n < 1) {slideIndex = slides.length}
+      for (i = 0; i < slides.length; i++) {
+          slides[i].style.display = "none";  
+      }
+      slides[slideIndex-1].style.display = "block";  
+    }
 </script>
 @endsection

@@ -15,8 +15,6 @@ use App\Http\Controllers\SearchController;
 // Route::get('/test', function () {
 //     return view('test');
 // });
-Route::get('/test', [SearchController::class, 'a']);
-Route::post('/test/store', [SearchController::class, 'store'])->name('images.store');
 
 Route::get('/', [SearchController::class, 'index']);
 Route::get('/details/{restaurant_name}', [SearchController::class , 'show']);

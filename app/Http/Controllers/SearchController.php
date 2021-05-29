@@ -7,8 +7,6 @@ use App\Models\Restaurant;
 use App\Models\Review;
 use App\Models\Category;
 
-use App\Models\Image;
-
 class SearchController extends Controller
 {
     public function index()
@@ -58,51 +56,5 @@ class SearchController extends Controller
         $rating = array('score_reviews' => $score_avg_reviews, 'count_reviews' => $count_reviews, 'count_pages' => $count_pages);
 
         return view('details', compact('restaurant', 'rating', 'reviews'));
-    }
-
-    public function a()
-    {
-        $restaurant = Restaurant::find(8);
-        return view('test', compact('restaurant'));
-    }
-
-    public function store(Request $request)
-    {
-        // dd($request);
-        // dd($request->file('images')[0]->getMimeType(),$request->file('images')[0]->getClientOriginalExtension() );
-
-        $request->validate([
-            'images.*' => 'required|mimes:jpg,png',
-            // 'images' => 'required',
-          ]);
-  
-          if ($request->hasfile('images')) {
-              $images = $request->file('images');
-  
-              foreach($images as $image) {
-                  $id = 1;
-                  $qwerty = $id.'/restaurant_2';
-
-                  $name = time().'_'.$image->getClientOriginalName();
-                  $path = $image->storeAs('test', $name, 'public');
-                  $size = $image->getSize();
-
-                //   dd($path);
-
-                  $aa = new Image;
-                $aa->restaurant_id = 1;
-                $aa->filename = $name;
-                $aa->path = $path;
-                $aa->size = $size;
-                $aa->save();
-
-                //   Image::create([
-                //       'name' => $name,
-                //       'path' => '/storage/'.$path
-                //     ]);
-              }
-           }
-  
-          return back()->with('success', 'Images uploaded successfully');
     }
 }

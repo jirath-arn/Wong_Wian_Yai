@@ -30,6 +30,12 @@
                                     @csrf
                                     @method('PUT')
 
+                                    <!-- Name Restaurant -->
+                                    <div class="form-group">
+                                        <strong>{{ trans('cruds.review.fields.restaurant_id') }} : </strong>
+                                        <span>{{ $review->restaurant->name }}</span>
+                                    </div><br>
+
                                     <!-- Score -->
                                     <div class="form-group {{ $errors->has('score') ? 'has-error' : '' }}">
                                         <label for="rating">{{ trans('cruds.review.fields.score') }}*</label>
