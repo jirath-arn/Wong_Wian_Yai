@@ -63,7 +63,7 @@
                         <label><input type="radio" value="3.0" name="rating"> &GreaterEqual; 3.0</label><br>
                     </div>
                 </div>
-                <div class="section-title" data-aos="fade-right">
+                {{-- <div class="section-title" data-aos="fade-right">
                     <strong>{{ trans('global.cities') }}</strong><br>
                         
                     <select class="form-select">
@@ -72,7 +72,7 @@
                         <option value="Pathum Thani">Pathum Thani</option>
                         <option value="Chonburi">Chonburi</option>
                     </select>
-                </div>
+                </div> --}}
             </div>
 
             <!-- Right Info -->
@@ -103,10 +103,6 @@
                                 {{-- <img src="{{ asset('storage/'. $restaurant->image) }}"> --}}
 
                                 <div class="slideshow-container" id="group-img{{ $i }}">
-
-                                    @foreach ($restaurants[$i]->images as $image)
-                                        
-                                    @endforeach
 
                                     @for ($j = 0; $j < count($restaurants[$i]->images); $j++)
                                         <div class="mySlides">

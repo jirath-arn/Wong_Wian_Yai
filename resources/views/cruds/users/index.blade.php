@@ -40,6 +40,7 @@
                                                 <th>{{ trans('cruds.user.fields.username') }}</th>
                                                 <th>{{ trans('cruds.user.fields.email') }}</th>
                                                 <th>{{ trans('cruds.user.fields.email_verified_at') }}</th>
+                                                <th>{{ trans('cruds.user.fields.roles') }}</th>
                                                 <th>{{ trans('global.actions') }}</th>
                                             </tr>
                                         </thead>
@@ -51,6 +52,11 @@
                                                     <td>{{ $user->username ?? '' }}</td>
                                                     <td>{{ $user->email ?? '' }}</td>
                                                     <td>{{ $user->email_verified_at ?? '' }}</td>
+                                                    <td>
+                                                        @foreach($user->roles as $key => $item)
+                                                            <span class="badge badge-info">{{ $item->title }}</span>
+                                                        @endforeach
+                                                    </td>
                                                     <td>
                                                         @can('user_show')
                                                             <button type="button" class="btn btn-xs btn-primary" id="btn-view" data-id="{{ $user->id }}" data-toggle="modal" data-target="#viewModel">{{ trans('global.view') }}</button>
@@ -77,39 +83,6 @@
                         </div><!-- End Card -->
                     </div><!-- End icon-box -->
                 </div>
-                
-                <!-- Create Model -->
-                <div class="modal fade" id="createModel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">{{ trans('global.create') }} {{ trans('cruds.user.title_singular') }}</h4>
-                            </div>
-                            <div class="modal-body">
-                                <form id="createForm" name="createForm" class="form-horizontal" novalidate="">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="username" name="username" placeholder="{{ trans('cruds.user.fields.username') }}*" value="{{ old('username', null) }}">
-                                    </div><br>
-                                    <div class="form-group">
-                                        <input type="email" class="form-control" id="email" name="email" placeholder="{{ trans('cruds.user.fields.email') }}*" value="{{ old('email', null) }}">
-                                    </div><br>
-                                    <div class="form-group">
-                                        <input type="password" class="form-control" id="password" name="password" placeholder="{{ trans('cruds.user.fields.password') }}*" value="{{ old('password', null) }}">
-                                    </div><br>
-                                    <div class="form-group">
-                                        <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="{{ trans('global.password_confirm') }}*" value="{{ old('password_confirmation', null) }}">
-                                    </div>
-                                </form>
-                            </div>
-                
-                            <!-- Button -->
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-model btn-flat" id="btn-create">{{ trans('global.create') }}</button>
-                            </div>
-                        </div>
-                    </div>
-                </div><!-- End Create Modal -->
-
 
                 <!-- View Model -->
                 <div class="modal fade" id="viewModel" aria-hidden="true">
@@ -127,8 +100,11 @@
                                         </tr>
                                         <tr>
                                             <th>{{ trans('cruds.user.fields.username') }}</th>
-                                            <td id="user_username">
-                                            </td>
+                                            <td id="user_username"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>{{ trans('cruds.user.fields.roles') }}</th>
+                                            <td id="user_roles"></td>
                                         </tr>
                                         <tr>
                                             <th>{{ trans('cruds.user.fields.email') }}</th>
@@ -173,9 +149,16 @@
             var id = $(this).data('id');
             
             $.get('users/' + id, function (data) {
+
+                var roles = '';
+                data.roles.forEach(element => {
+                    roles += '<span class="badge badge-info">' + element.title + '</span><br>';
+                });
+
                 $('#viewModel').modal('show');
                 $('#user_id').html(data.data.id);
                 $('#user_username').html(data.data.username);
+                $('#user_roles').html(roles);
                 $('#user_email').html(data.data.email);
                 $('#user_email_verified_at').html(data.data.email_verified_at);
      
@@ -189,40 +172,6 @@
         
         jQuery('#btn-close').click(function (e) {
             jQuery('#viewModel').modal('hide');
-        });
-
-        // Store
-        jQuery('body').on('click', '#btn-create', function (event) {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                }
-            });
-    
-            event.preventDefault();
-            $.ajax({
-                type: 'POST',
-                url: "{{ route('users.store') }}",
-                data: {
-                    title: jQuery('#title').val()
-                },
-                
-                success: function (data) {
-                    jQuery('#createForm').trigger("reset");
-                    jQuery('#createModel').modal('hide');
-                    window.location.hash = "#users";
-                    location.reload();
-                },
-                error: function (data) {
-                    var res = JSON.parse(data.responseText);
-
-                    if (data.status == 500) {
-                        alert(res.message);
-                    } else {
-                        alert(res.errors.title[0]);
-                    }
-                }
-            });
         });
     });
 </script>
@@ -242,11 +191,10 @@
                 className: 'btn-success',
                 
                 action: function (e, dt, node, config) {
-                    jQuery('#createForm').trigger("reset");
-                    jQuery('#createModel').modal('show');
+                    window.location.href = '/users/create#users';
                 }
             }
-            // dtButtons.push(addButton)
+            dtButtons.push(addButton)
         @endcan
 
         /****************************************

@@ -74,6 +74,7 @@ return [
         'fields'            => [
             'id'                    => 'ID',
             'username'              => 'Username',
+            'roles'                 => 'Roles',
             'email'                 => 'Email',
             'email_verified_at'     => 'Email Verified At',
             'password'              => 'Password',

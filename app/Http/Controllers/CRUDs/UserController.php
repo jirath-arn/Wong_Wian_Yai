@@ -24,28 +24,31 @@ class UserController extends Controller
     public function show(User $user)
     {
         abort_if(Gate::denies('user_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        
-        return response()->json(['data' => $user]);
+
+        return response()->json(['data' => $user, 'roles' => $user->roles]);
+    }
+
+    public function create()
+    {
+        abort_if(Gate::denies('user_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $roles = Role::all()->pluck('title', 'id');
+
+        return view('cruds.users.create', compact('roles'));
     }
 
     public function store(Request $request)
     {
-        abort_if(Gate::denies('user_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
         $request->validate([
             'username' => ['required', 'string', 'max:255', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'roles.*' => ['integer'],
+            'roles' => ['required', 'array'],
         ]);
 
-        $role = Role::where('title', 'like', 'User')->get();
-
-        $user = User::create([
-            'username' => $request->username,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-        $user->roles()->sync($role[0]->id);
+        $user = User::create($request->all());
+        $user->roles()->sync($request->input('roles', []));
 
         return redirect(route('users.index') . '#users');
     }
@@ -53,19 +56,25 @@ class UserController extends Controller
     public function edit(User $user)
     {
         abort_if(Gate::denies('user_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        
-        return view('cruds.users.edit', compact('user'));
+
+        $roles = Role::all()->pluck('title', 'id');
+        $user->load('roles');
+
+        return view('cruds.users.edit', compact('roles', 'user'));
     }
 
     public function update(Request $request, $id)
     {
         $request->validate([
-            'username' => ['required', 'string', 'max:255', 'unique:users'],
+            'username' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'roles.*' => ['integer'],
+            'roles' => ['required', 'array'],
         ]);
 
         $user = User::find($id);
-        $user->username = $request->username;
-        $user->save();
+        $user->update($request->all());
+        $user->roles()->sync($request->input('roles', []));
         
         return redirect(route('users.index') . '#users');
     }

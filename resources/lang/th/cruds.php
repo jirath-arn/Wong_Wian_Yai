@@ -74,6 +74,7 @@ return [
         'fields'            => [
             'id'                    => 'ไอดี',
             'username'              => 'ชื่อผู้ใช้',
+            'roles'                 => 'ตำแหน่ง',
             'email'                 => 'อีเมล',
             'email_verified_at'     => 'ตรวจสอบอีเมลเมื่อ',
             'password'              => 'รหัสผ่าน',
