@@ -7,6 +7,17 @@ return [
     ],
     'profile'       => [
         'title'          => 'My Profile',
+        'fields' => [
+            'id'                    => 'ID',
+            'username'              => 'Username',
+            'roles'                 => 'Roles',
+            'email'                 => 'Email',
+            'email_verified_at'     => 'Email Verified At',
+            'count_restaurant'      => 'Total number of restaurants',
+            'count_review'          => 'Total number of reviews',
+            'created_at'            => 'Created At',
+            'updated_at'            => 'Updated At',
+        ],
     ],
     'restaurant'    => [
         'title'             => 'Restaurants',

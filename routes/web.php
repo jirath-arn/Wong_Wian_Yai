@@ -24,6 +24,9 @@ Auth::routes();
 Route::group(['middleware' => ['auth']], function () {
     Route::redirect('/home', '/');
 
+    // Profile
+    Route::get('profile', [UserController::class, 'profile'])->name('users.profile');
+
     // Categories
     Route::resource('categories', CategoryController::class);
     Route::post('categories/destroy', [CategoryController::class, 'massDestroy'])->name('categories.massDestroy');

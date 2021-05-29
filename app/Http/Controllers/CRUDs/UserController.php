@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 use Gate;
+use Auth;
 use App\Models\User;
 use App\Models\Role;
 
@@ -106,5 +107,12 @@ class UserController extends Controller
             $user->delete();
         }
         return redirect(route('users.index') . '#users');
+    }
+
+    public function profile()
+    {
+        $user = Auth::user();
+
+        return view('profile', compact('user'));
     }
 }

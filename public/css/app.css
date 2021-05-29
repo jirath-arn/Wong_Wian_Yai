@@ -512,6 +512,7 @@ section {
   # Restaurants & Permissions & Categories & Roles
   --------------------------------------------------------------*/
 
+.profiles .icon-box,
 .users .icon-box,
 .reviews .icon-box,
 .permissions .icon-box,
@@ -541,6 +542,7 @@ section {
     margin-bottom: 0;
 }
 
+.profiles .icon-box:hover,
 .users .icon-box:hover,
 .reviews .icon-box:hover,
 .permissions .icon-box:hover,

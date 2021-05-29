@@ -7,6 +7,17 @@ return [
     ],
     'profile'       => [
         'title'          => 'ประวัติของฉัน',
+        'fields'            => [
+            'id'                    => 'ไอดี',
+            'username'              => 'ชื่อผู้ใช้',
+            'roles'                 => 'ตำแหน่ง',
+            'email'                 => 'อีเมล',
+            'email_verified_at'     => 'ตรวจสอบอีเมลเมื่อ',
+            'count_restaurant'      => 'จำนวนร้านอาหารทั้งหมด',
+            'count_review'          => 'จำนวนรีวิวไปแล้วทั้งหมด',
+            'created_at'            => 'สร้างเมื่อ',
+            'updated_at'            => 'อัปเดตเมื่อ',
+        ],
     ],
     'restaurant'    => [
         'title'             => 'ร้านอาหาร',
