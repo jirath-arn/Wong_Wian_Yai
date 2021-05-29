@@ -50,7 +50,7 @@
                     <ul>
                         <li><a class="nav-link scrollto active" href="#hero">{{ trans('global.home') }}</a></li>
                         <li><a class="nav-link scrollto" href="#footer">{{ trans('global.about') }}</a></li>
-                        <li><a class="nav-link scrollto" href="#restaurants">{{ trans('global.search') }}</a></li>
+                        <li><a class="nav-link scrollto" href="/#restaurants">{{ trans('global.search') }}</a></li>
                         <li><a class="nav-link scrollto" href="#footer">{{ trans('global.contact') }}</a></li>
                         <li class="dropdown"><a href="#"><span>{{ trans('global.languages') }}</span> <i class="bi bi-chevron-down"></i></a>
                             <ul>
@@ -133,22 +133,22 @@
                         <ul>
                             <li><i class="bx bx-chevron-right"></i> <a href="#hero">{{ trans('global.home') }}</a></li>
                             <li><i class="bx bx-chevron-right"></i> <a href="#footer">{{ trans('global.about_us') }}</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#restaurants">{{ trans('global.search') }}</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="/#restaurants">{{ trans('global.search') }}</a></li>
                             <li><i class="bx bx-chevron-right"></i> <a href="#footer">{{ trans('global.contact') }}</a></li>
                         </ul>
                     </div>
                     <div class="col-lg-3 col-md-6 footer-links">
                         <h4>{{ trans('global.our_services') }}</h4>
                         <ul>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#restaurants">{{ trans('panel.search_restaurants') }}</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#restaurants">{{ trans('panel.promote_restaurants') }}</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#restaurants">{{ trans('panel.restaurant_reviews') }}</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="/#restaurants">{{ trans('panel.search_restaurants') }}</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="{{ route('restaurants.index') }}">{{ trans('panel.promote_restaurants') }}</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="{{ route('restaurants.index') }}">{{ trans('panel.restaurant_reviews') }}</a></li>
                         </ul>
                     </div>
                     <div class="col-lg-4 col-md-6 footer-newsletter">
                         <h4>{{ trans('panel.join_our_newsletter') }}</h4>
-                        <p>{{ trans('panel.newsletter_content') }}</p>
-                        <form action="" method="POST">
+                        {{-- <p>{{ trans('panel.newsletter_content') }}</p> --}}
+                        <form action="#">
                             <input type="email" name="email"><input type="submit" value="{{ trans('global.subscribe') }}">
                         </form>
                     </div>
@@ -165,10 +165,10 @@
                 </div>
             </div>
             <div class="social-links text-center text-md-right pt-3 pt-md-0">
-                <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-                <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-                <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-                <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+                <a href="https://twitter.com/" target="_blank" class="twitter"><i class="bx bxl-twitter"></i></a>
+                <a href="https://www.facebook.com/" target="_blank" class="facebook"><i class="bx bxl-facebook"></i></a>
+                <a href="https://www.instagram.com/" target="_blank" class="instagram"><i class="bx bxl-instagram"></i></a>
+                <a href="https://www.linkedin.com/" target="_blank" class="linkedin"><i class="bx bxl-linkedin"></i></a>
             </div>
         </div>
     </footer><!-- End Footer -->

@@ -39,36 +39,12 @@
                                         @endif
                                     </div><br>
 
-                                    <!-- Category -->
-                                    {{-- <div class="form-group {{ $errors->has('categories') ? 'has-error' : '' }}">
-                                        <label for="categories">{{ trans('cruds.restaurant.fields.category_id') }}*</label>
-                                        <select name="categories" id="categories" class="form-control select2" required>
-                                            @foreach($categories as $id => $categories)
-                                                <option value="{{ $id }}" {{ isset($restaurant) && $restaurant->category->contains($id)) ? 'selected' : '' }}>{{ $categories }}</option>
-                                            @endforeach
-                                        </select>
-                                        @if($errors->has('categories'))
-                                            <p class="help-block">
-                                                {{ $errors->first('categories') }}
-                                            </p>
-                                        @endif
-                                    </div><br> --}}
-
                                     <!-- Description -->
                                     <div class="form-group {{ $errors->has('description') ? 'has-error' : '' }}">
                                         <label for="description">{{ trans('cruds.restaurant.fields.description') }}*</label>
                                         <textarea id="description" name="description" style="width: 100%;" rows="5">{{ old('description', isset($restaurant) ? $restaurant->description : '') }}</textarea>
                                         @if($errors->has('description'))
                                             <p class="help-block" style="color: #CD1201;">{{ $errors->first('description') }}</p>
-                                        @endif
-                                    </div><br>
-
-                                    <!-- File -->
-                                    <div class="form-group {{ $errors->has('images') ? 'has-error' : '' }}">
-                                        <label for="images">{{ trans('cruds.restaurant.fields.images') }}*</label>
-                                        <input type="file" id="images" name="images[]" multiple class="form-control" accept="image/*">
-                                        @if($errors->has('images'))
-                                            <p class="help-block" style="color: #CD1201;">{{ $errors->first('images') }}</p>
                                         @endif
                                     </div><br>
 

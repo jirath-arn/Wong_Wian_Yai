@@ -12,7 +12,9 @@ class SearchController extends Controller
     public function index()
     {
         $categories = Category::all();
-        $restaurants = Restaurant::inRandomOrder()->get();
+        
+        $restaurants = Restaurant::inRandomOrder()->simplePaginate(6);
+
         $reviews = [];
 
         for ($i = 0; $i < count($restaurants); $i++) {
@@ -56,5 +58,34 @@ class SearchController extends Controller
         $rating = array('score_reviews' => $score_avg_reviews, 'count_reviews' => $count_reviews, 'count_pages' => $count_pages);
 
         return view('details', compact('restaurant', 'rating', 'reviews'));
+    }
+
+    public function filter(Request $request)
+    {
+        $restaurants = Restaurant::whereIn('category_id', request('ids'))->get();
+        $reviews = [];
+        $categories = [];
+        $images = [];
+
+        for ($i = 0; $i < count($restaurants); $i++) {
+
+            $score_sum_reviews = 0;
+            $count_reviews = count($restaurants[$i]->reviews);
+            $score_avg_reviews = number_format(0, 1);
+
+            foreach ($restaurants[$i]->reviews as $review) {
+                $score_sum_reviews += $review->score;
+            }
+
+            if ($count_reviews > 0) {
+                $score_avg_reviews = number_format($score_sum_reviews / $count_reviews, 1);
+            }
+            
+            $reviews[$i] = array('score_reviews' => $score_avg_reviews, 'count_reviews' => $count_reviews);
+            $categories[$i] = array('category' => $restaurants[$i]->category);
+            $images[$i] = array('image' => $restaurants[$i]->images);
+        }
+
+        return response()->json(['data' => $restaurants, 'reviews' => $reviews, 'categories' => $categories, 'images' => $images]);
     }
 }

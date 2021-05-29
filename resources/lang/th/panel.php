@@ -6,7 +6,7 @@ return [
     'page_'                 => 'WongWianYai - ',
     'page_search'           => 'WongWianYai - รีวิวร้านอาหาร',
     'popular_restaurants'   => 'ร้านอาหารยอดนิยม',
-    'example_search'        => 'ตัวอย่าง ประเภท, ร้านอาหาร, เมือง',
+    'example_search'        => 'ตัวอย่าง ร้านอาหาร',
     'search_restaurants'    => 'ค้นหาร้านอาหาร',
     'promote_restaurants'   => 'โปรโมตร้านอาหาร',
     'restaurant_reviews'    => 'รีวิวร้านอาหาร',

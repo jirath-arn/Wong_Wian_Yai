@@ -132,25 +132,28 @@ class RestaurantController extends Controller
     public function edit(Restaurant $restaurant)
     {
         abort_if(Gate::denies('restaurant_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        
-        $categories = Category::all()->pluck('title', 'id');
-        // $restaurant->load('categories');
 
-        return view('cruds.restaurants.edit', compact('categories', 'restaurant'));
+        return view('cruds.restaurants.edit', compact('restaurant'));
     }
 
     public function update(Request $request, $id)
     {
-        // $request->validate([
-        //     'route_id' => 'required',
-        //     'license_plate' => 'required|max:10',
-        // ]);
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'telephone' => 'required|max:10',
+            'address' => 'required',
+        ]);
+
+        $restaurant = Restaurant::find($id);
+        $restaurant->name = $request->name;
+        $restaurant->description = $request->description;
+        $restaurant->telephone = $request->telephone;
+        $restaurant->address = $request->address;
+        $restaurant->website = $request->website;
+        $restaurant->save();
         
-        // $restaurant = Restaurant::find($id);
-        // $restaurant->route_id = $request->route_id;
-        // $restaurant->license_plate = $request->license_plate;
-        // $restaurant->save();
-        // return redirect()->route('admin.restaurants.index');
+        return redirect(route('restaurants.index') . '#restaurants');
     }
 
     public function destroy(Restaurant $restaurant)

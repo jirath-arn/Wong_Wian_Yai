@@ -6,7 +6,7 @@ return [
     'page_'                 => 'WongWianYai - ',
     'page_search'           => 'WongWianYai - Restaurants reviews',
     'popular_restaurants'   => 'Popular Restaurants',
-    'example_search'        => 'ex. Categories, Restaurants, Cities',
+    'example_search'        => 'ex. Restaurants',
     'search_restaurants'    => 'Search Restaurants',
     'promote_restaurants'   => 'Promote Restaurants',
     'restaurant_reviews'    => 'Restaurant Reviews',
