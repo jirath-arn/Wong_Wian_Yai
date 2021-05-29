@@ -25,11 +25,16 @@ class CategoryController extends Controller
         
         return response()->json(['data' => $category]);
     }
-
-    public function store(Request $request)
+    
+    public function create()
     {
         abort_if(Gate::denies('category_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        return view('cruds.categories.create');
+    }
+
+    public function store(Request $request)
+    {
         $request->validate([
             'title' => 'required|unique:categories',
         ]);
@@ -49,12 +54,11 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'title' => 'required|unique:categories',
+            'title' => 'required',
         ]);
 
         $category = Category::find($id);
-        $category->title = $request->title;
-        $category->save();
+        $category->update($request->all());
         
         return redirect(route('categories.index') . '#categories');
     }

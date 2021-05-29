@@ -171,7 +171,7 @@
          * Delete Selected
          ****************************************/
 
-        @can('role_delete')
+        @can('permission_delete')
             let deleteButtonTrans = '{{ trans('global.delete_selected') }}'
             let deleteButton = {
                 text: deleteButtonTrans,
