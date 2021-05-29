@@ -73,30 +73,6 @@
                         </div><!-- End Card -->
                     </div><!-- End icon-box -->
                 </div>
-                
-                <!-- Create Model -->
-                <div class="modal fade" id="createModel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">{{ trans('global.create') }} {{ trans('cruds.permission.title_singular') }}</h4>
-                            </div>
-                            <div class="modal-body">
-                                <form id="createForm" name="createForm" class="form-horizontal" novalidate="">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="title" name="title" placeholder="{{ trans('cruds.permission.fields.title') }}*" value="{{ old('title', null) }}">
-                                    </div>
-                                </form>
-                            </div>
-                
-                            <!-- Button -->
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-model btn-flat" id="btn-create">{{ trans('global.create') }}</button>
-                            </div>
-                        </div>
-                    </div>
-                </div><!-- End Create Modal -->
-
 
                 <!-- View Model -->
                 <div class="modal fade" id="viewModel" aria-hidden="true">
@@ -114,8 +90,7 @@
                                         </tr>
                                         <tr>
                                             <th>{{ trans('cruds.permission.fields.title') }}</th>
-                                            <td id="permission_title">
-                                            </td>
+                                            <td id="permission_title"></td>
                                         </tr>
                                         <tr>
                                             <th>{{ trans('cruds.permission.fields.created_at') }}</th>
@@ -152,6 +127,7 @@
             var id = $(this).data('id');
             
             $.get('permissions/' + id, function (data) {
+
                 $('#viewModel').modal('show');
                 $('#permission_id').html(data.data.id);
                 $('#permission_title').html(data.data.title);
@@ -166,40 +142,6 @@
         
         jQuery('#btn-close').click(function (e) {
             jQuery('#viewModel').modal('hide');
-        });
-
-        // Store
-        jQuery('body').on('click', '#btn-create', function (event) {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                }
-            });
-    
-            event.preventDefault();
-            $.ajax({
-                type: 'POST',
-                url: "{{ route('permissions.store') }}",
-                data: {
-                    title: jQuery('#title').val()
-                },
-                
-                success: function (data) {
-                    jQuery('#createForm').trigger("reset");
-                    jQuery('#createModel').modal('hide');
-                    window.location.hash = "#permissions";
-                    location.reload();
-                },
-                error: function (data) {
-                    var res = JSON.parse(data.responseText);
-
-                    if (data.status == 500) {
-                        alert(res.message);
-                    } else {
-                        alert(res.errors.title[0]);
-                    }
-                }
-            });
         });
     });
 </script>
@@ -219,8 +161,7 @@
                 className: 'btn-success',
                 
                 action: function (e, dt, node, config) {
-                    jQuery('#createForm').trigger("reset");
-                    jQuery('#createModel').modal('show');
+                    window.location.href = '/permissions/create#permissions';
                 }
             }
             dtButtons.push(addButton)
@@ -230,7 +171,7 @@
          * Delete Selected
          ****************************************/
 
-        @can('permission_delete')
+        @can('role_delete')
             let deleteButtonTrans = '{{ trans('global.delete_selected') }}'
             let deleteButton = {
                 text: deleteButtonTrans,

@@ -28,10 +28,15 @@ class PermissionController extends Controller
         return response()->json(['data' => $permission]);
     }
 
-    public function store(Request $request)
+    public function create()
     {
         abort_if(Gate::denies('permission_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        return view('cruds.permissions.create');
+    }
+
+    public function store(Request $request)
+    {
         $request->validate([
             'title' => 'required|unique:permissions',
         ]);
@@ -51,12 +56,11 @@ class PermissionController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'title' => 'required|unique:permissions',
+            'title' => 'required',
         ]);
 
         $permission = Permission::find($id);
-        $permission->title = $request->title;
-        $permission->save();
+        $permission->update($request->all());
         
         return redirect(route('permissions.index') . '#permissions');
     }
