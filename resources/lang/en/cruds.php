@@ -30,7 +30,7 @@ return [
         'title_singular'    => 'Review',
         'fields'            => [
             'id'                    => 'ID',
-            'user_id'               => 'User',
+            'user_id'               => 'Owner',
             'restaurant_id'         => 'Restaurant',
             'description'           => 'Description',
             'score'                 => 'Score',

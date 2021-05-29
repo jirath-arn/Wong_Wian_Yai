@@ -30,7 +30,7 @@ return [
         'title_singular'    => 'รีวิว',
         'fields'            => [
             'id'                    => 'ไอดี',
-            'user_id'               => 'ผู้ใช้งาน',
+            'user_id'               => 'เจ้าของ',
             'restaurant_id'         => 'ร้านอาหาร',
             'description'           => 'คำอธิบาย',
             'score'                 => 'คะแนน',

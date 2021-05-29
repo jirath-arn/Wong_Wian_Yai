@@ -79,33 +79,6 @@
                         </div><!-- End Card -->
                     </div><!-- End icon-box -->
                 </div>
-                
-                <!-- Create Model -->
-                <div class="modal fade" id="createModel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">{{ trans('global.create') }} {{ trans('cruds.review.title_singular') }}</h4>
-                            </div>
-                            <div class="modal-body">
-                                <form id="createForm" name="createForm" class="form-horizontal" novalidate="">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="description" name="description" placeholder="{{ trans('cruds.review.fields.description') }}*" value="{{ old('description', null) }}">
-                                    </div><br>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="score" name="score" placeholder="{{ trans('cruds.review.fields.score') }}*" value="{{ old('score', null) }}">
-                                    </div>
-                                </form>
-                            </div>
-                
-                            <!-- Button -->
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-model btn-flat" id="btn-create">{{ trans('global.create') }}</button>
-                            </div>
-                        </div>
-                    </div>
-                </div><!-- End Create Modal -->
-
 
                 <!-- View Model -->
                 <div class="modal fade" id="viewModel" aria-hidden="true">
@@ -122,14 +95,20 @@
                                             <td id="review_id"></td>
                                         </tr>
                                         <tr>
+                                            <th>{{ trans('cruds.review.fields.user_id') }}</th>
+                                            <td id="review_user_id"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>{{ trans('cruds.review.fields.restaurant_id') }}</th>
+                                            <td id="review_restaurant_id"></td>
+                                        </tr>
+                                        <tr>
                                             <th>{{ trans('cruds.review.fields.description') }}</th>
-                                            <td id="review_description">
-                                            </td>
+                                            <td id="review_description"></td>
                                         </tr>
                                         <tr>
                                             <th>{{ trans('cruds.review.fields.score') }}</th>
-                                            <td id="review_score">
-                                            </td>
+                                            <td id="review_score"></td>
                                         </tr>
                                         <tr>
                                             <th>{{ trans('cruds.review.fields.created_at') }}</th>
@@ -166,10 +145,25 @@
             var id = $(this).data('id');
             
             $.get('reviews/' + id, function (data) {
+
+                var i;
+                var star = '';
+                for (i = 0; i < Math.floor(data.data.score); i++) {
+                    star += '<span class="fa fa-star" style="color: orange;"></span>&nbsp;';
+                }
+                if (Math.floor(data.data.score) != data.data.score) {
+                    star += '<span class="fa fa-star-half-o" style="color: orange;"></span>&nbsp;';
+                }
+                for (i = Math.ceil(data.data.score); i < 5; i++) {
+                    star += '<span class="fa fa-star-o" style="color: orange;"></span></span>&nbsp;';
+                }
+
                 $('#viewModel').modal('show');
                 $('#review_id').html(data.data.id);
+                $('#review_user_id').html(data.user.username);
+                $('#review_restaurant_id').html(data.restaurant.name);
                 $('#review_description').html(data.data.description);
-                $('#review_score').html(data.data.score);
+                $('#review_score').html(star + ' (' + data.data.score + ')');
      
                 var created_at = new Date(data.data.created_at);
                 $('#review_created_at').html(created_at.toLocaleString());
@@ -181,40 +175,6 @@
         
         jQuery('#btn-close').click(function (e) {
             jQuery('#viewModel').modal('hide');
-        });
-
-        // Store
-        jQuery('body').on('click', '#btn-create', function (event) {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                }
-            });
-    
-            event.preventDefault();
-            $.ajax({
-                type: 'POST',
-                url: "{{ route('reviews.store') }}",
-                data: {
-                    title: jQuery('#title').val()
-                },
-                
-                success: function (data) {
-                    jQuery('#createForm').trigger("reset");
-                    jQuery('#createModel').modal('hide');
-                    window.location.hash = "#reviews";
-                    location.reload();
-                },
-                error: function (data) {
-                    var res = JSON.parse(data.responseText);
-
-                    if (data.status == 500) {
-                        alert(res.message);
-                    } else {
-                        alert(res.errors.title[0]);
-                    }
-                }
-            });
         });
     });
 </script>
@@ -234,11 +194,10 @@
                 className: 'btn-success',
                 
                 action: function (e, dt, node, config) {
-                    jQuery('#createForm').trigger("reset");
-                    jQuery('#createModel').modal('show');
+                    window.location.href = '/reviews/create#reviews';
                 }
             }
-            // dtButtons.push(addButton)
+            dtButtons.push(addButton)
         @endcan
 
         /****************************************

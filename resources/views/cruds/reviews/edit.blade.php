@@ -31,7 +31,7 @@
                                     @method('PUT')
 
                                     <!-- Score -->
-                                    <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }}">
+                                    <div class="form-group {{ $errors->has('score') ? 'has-error' : '' }}">
                                         <label for="rating">{{ trans('cruds.review.fields.score') }}*</label>
                                         <div class="rate">
                                             <fieldset class="score-rating">
@@ -47,14 +47,14 @@
                                                 <input {{ ($review->score == 0.5) ? 'checked':'' }} type="radio" id="star0_half" name="rating" value="0.5"><label class="half" for="star0_half" title="{{ trans('panel.rating.bad', ['num' => '0.5']) }}"></label>
                                             </fieldset>
                                         </div>
-                                        @if($errors->has('title'))
-                                            <p class="help-block" style="color: #CD1201;">{{ $errors->first('title') }}</p>
+                                        @if($errors->has('score'))
+                                            <p class="help-block" style="color: #CD1201;">{{ $errors->first('score') }}</p>
                                         @endif
                                     </div><br><br>
 
                                     <div class="form-group {{ $errors->has('description') ? 'has-error' : '' }}">
-                                        <label for="description">{{ trans('cruds.review.fields.description') }}*</label>
-                                        <textarea class="description" name="description" style="height: 100%;">{{ $review->description }}</textarea>
+                                        <label for="description">{{ trans('cruds.review.fields.description') }}*</label><br>
+                                        <textarea id="description" name="description" style="width: 100%;" rows="10">{{ $review->description }}</textarea>
                                         @if($errors->has('description'))
                                             <p class="help-block" style="color: #CD1201;">{{ $errors->first('description') }}</p>
                                         @endif
@@ -78,73 +78,6 @@
 
 @section('styles')
 <style>
-.btn-primary {
-    color: #fff;
-    background-color: #009970;
-    border-color: #009970;
-    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
-}
-
-.btn-primary:hover {
-    color: #fff;
-    background-color: #00664b;
-    border-color: #00664b;
-}
-
-.btn-primary.focus,
-.btn-primary:focus {
-    background-color: #00664b;
-    border-color: #00664b;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, .075), 0 0 0 0.2rem rgba(0, 123, 255, .5);
-}
-
-.btn-primary.disabled,
-.btn-primary:disabled {
-    color: #fff;
-    background-color: #00664b;
-    border-color: #00664b;
-}
-
-.btn-primary:not(:disabled):not(.disabled).active,
-.btn-primary:not(:disabled):not(.disabled):active,
-.show>.btn-primary.dropdown-toggle {
-    color: #fff;
-    background-color: #009970;
-    border-color: #009970
-}
-
-.btn-primary:not(:disabled):not(.disabled).active:focus,
-.btn-primary:not(:disabled):not(.disabled):active:focus,
-.show>.btn-primary.dropdown-toggle:focus {
-    box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125), 0 0 0 0.2rem rgba(0, 123, 255, .5)
-}
-
-.btn-block {
-    display: block;
-    width: 100%
-}
-
-.btn-block+.btn-block {
-    margin-top: 0.5rem
-}
-
-input[type=button].btn-block,
-input[type=reset].btn-block,
-input[type=submit].btn-block {
-    width: 100%
-}
-
-.btn-group-vertical .btn.btn-flat:first-of-type,
-.btn-group-vertical .btn.btn-flat:last-of-type {
-    border-radius: 0
-}
-
-.btn.btn-flat {
-    border-radius: 0;
-    box-shadow: none;
-    border-width: 1px
-}
-
 .rate fieldset label { 
     margin: 0; padding: 0; 
 }

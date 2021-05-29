@@ -32,7 +32,14 @@ class ReviewController extends Controller
     {
         abort_if(Gate::denies('review_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         
-        return response()->json(['data' => $review]);
+        return response()->json(['data' => $review, 'user' => $review->user, 'restaurant' => $review->restaurant]);
+    }
+
+    public function create()
+    {
+        abort_if(Gate::denies('review_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        return redirect(url('/') . '#restaurants');
     }
 
     /**
@@ -43,10 +50,7 @@ class ReviewController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        abort_if(Gate::denies('review_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        
+    {   
         $request->validate([
             'description' => 'required',
         ]);
