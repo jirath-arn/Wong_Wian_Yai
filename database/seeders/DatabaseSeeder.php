@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             CategoriesTableSeeder::class,
             RestaurantsTableSeeder::class,
             ReviewsTableSeeder::class,
+            ImagesTableSeeder::class,
         ]);
     }
 }

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Review;
 use App\Models\Category;
+use App\Models\Image;
 
 class Restaurant extends Model
 {
@@ -22,7 +23,6 @@ class Restaurant extends Model
         'category_id',
         'name',
         'description',
-        'image',
         'telephone',
         'address',
     ];
@@ -40,5 +40,10 @@ class Restaurant extends Model
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id');
+    }
+
+    public function images()
+    {
+        return $this->hasMany(Image::class);
     }
 }

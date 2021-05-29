@@ -21,7 +21,6 @@ class CreateRestaurantsTable extends Migration
             $table->foreign('category_id')->references('id')->on('categories');
             $table->string('name')->unique();
             $table->text('description');
-            $table->string('image');
             $table->string('telephone', 10);
             $table->text('address');
             $table->string('website')->nullable();

@@ -64,8 +64,8 @@
                         @else
                             <li class="dropdown"><a class="getstarted scrollto" href="#" style="color: #fff;"><span>{{ trans('global.username') }} : <label style="text-transform: none;">{{ Auth::user()->username }}</label></span> <i class="bi bi-chevron-down"></i></a>
                                 <ul>
-                                    {{-- <li><a href="#">{{ trans('cruds.profile.title') }}<i class="bi bi-person-fill"></i></a></li> --}}
-                                    {{-- <li><div class="line"></div></li> --}}
+                                    <li><a href="#">{{ trans('cruds.profile.title') }}<i class="bi bi-person-fill"></i></a></li>
+                                    <li><div class="line"></div></li>
 
                                     @can('category_access')
                                         <li><a href="{{ route('categories.index') }}">{{ trans('cruds.category.title') }}<i class="bi bi-tags"></i></a></li>

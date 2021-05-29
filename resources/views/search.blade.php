@@ -98,7 +98,29 @@
                                 </p>
                                     
                                 <hr>
-                                <img src="{{ asset('img/hero-bg.jpg') }}" alt="Restaurant" style="width:60%;  margin-left: auto; margin-right: auto; display: block;">
+                                {{-- <img src="{{ asset('img/hero-bg.jpg') }}" alt="Restaurant" style="width:60%;  margin-left: auto; margin-right: auto; display: block;"> --}}
+
+                                {{-- <img src="{{ asset('storage/'. $restaurant->image) }}"> --}}
+
+                                <div class="slideshow-container" id="group-img{{ $i }}">
+
+                                    @foreach ($restaurants[$i]->images as $image)
+                                        
+                                    @endforeach
+
+                                    @for ($j = 0; $j < count($restaurants[$i]->images); $j++)
+                                        <div class="mySlides">
+                                            <img src="{{ asset('storage/' . $restaurants[$i]->images[$j]->path) }}">
+                                            <div class="text">{{ $j+1 }} / {{ count($restaurants[$i]->images) }}</div>
+                                        </div>
+                                    @endfor
+
+                                    <a class="prev" onclick="plusSlides(-1, {{ $i }})">&#10094;</a>
+                                    <a class="next" onclick="plusSlides(1, {{ $i }})">&#10095;</a>
+                                </div>
+
+
+
                             </div>
                         </div>
                     @endfor
@@ -107,4 +129,105 @@
         </div>
     </div>
 </section><!-- End Restaurants Section -->
+@endsection
+
+@section('styles')
+<style>
+    * {
+        /* box-sizing: border-box */
+    }
+
+    .mySlides {
+        display: none
+    }
+
+    img {
+        vertical-align: middle;
+        width: 100%;
+        height: 200px;
+        /* max-height: 1000px; */
+        object-fit: cover;
+    }
+
+    /* Slideshow container */
+    .slideshow-container {
+        /* max-width: 500px; */
+        width: 70%;
+        position: relative;
+        margin: auto;
+    }
+
+    /* Next & previous buttons */
+    .prev,
+    .next {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        width: auto;
+        padding: 16px;
+        margin-top: -22px;
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
+        transition: 0.6s ease;
+        border-radius: 0 3px 3px 0;
+        user-select: none;
+    }
+
+    /* Position the "next button" to the right */
+    .next {
+        right: 0;
+        border-radius: 3px 0 0 3px;
+    }
+
+    /* On hover, add a grey background color */
+    .prev:hover,
+    .next:hover {
+        background-color: #f1f1f1;
+        color: black;
+    }
+
+    /* Caption text */
+    .text {
+        color: #f2f2f2;
+        font-size: 15px;
+        padding: 8px 12px;
+        position: absolute;
+        bottom: 8px;
+        width: 100%;
+        text-align: center;
+    }
+</style>
+@endsection
+
+@section('scripts')
+<script>
+    var slideIndex = [];
+    @for ($i = 0; $i < count($restaurants); $i++)
+        slideIndex.push(1);
+    @endfor
+
+    @for ($i = 0; $i < count($restaurants); $i++)
+        showSlides(1, {{ $i }});
+    @endfor
+
+    function plusSlides(n, no) {
+        showSlides(slideIndex[no] += n, no);
+    }
+
+    function showSlides(n, no) {
+        var i;
+        var x = document.getElementById("group-img" + no).getElementsByClassName("mySlides");
+        if (n > x.length) {
+            slideIndex[no] = 1
+        }
+        if (n < 1) {
+            slideIndex[no] = x.length
+        }
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        x[slideIndex[no] - 1].style.display = "block";
+    }
+</script>
 @endsection
