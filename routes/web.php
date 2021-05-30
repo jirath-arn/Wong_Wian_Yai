@@ -12,11 +12,11 @@ use App\Http\Controllers\CRUDs\UserController;
 use App\Http\Controllers\SearchController;
 
 
-Route::get('/', function () {
-    return view('test');
-});
+// Route::get('/', function () {
+//     return view('test');
+// });
 
-// Route::get('/', [SearchController::class, 'index']);
+Route::get('/', [SearchController::class, 'index']);
 Route::get('/details/{restaurant_name}', [SearchController::class , 'show']);
 
 Auth::routes();
